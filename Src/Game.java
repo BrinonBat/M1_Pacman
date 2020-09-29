@@ -1,6 +1,6 @@
 public abstract class Game {
-    private uint turn ;
-    private uint maxturn;
+    private int turn ;
+    private int maxturn;
     private boolean isRunning;
 
     //Methode Abstraite
@@ -10,7 +10,7 @@ public abstract class Game {
     public abstract void gameOver();
 
     //Methode concrète
-    public void Init(uint turn, uint maxturn, boolean isRunning) {
+    public void Init(int turn, int maxturn, boolean isRunning) {
         this.turn = 0;
         this.isRunning = true;
         initialiseGame();
@@ -38,22 +38,22 @@ public abstract class Game {
 
     public void pause(){ isRunning = false ; }
 
-    public uint getTurn() {
+    public int getTurn() {
         return turn;
     }
 
 
     //Getter et Setter
     
-    public void setTurn(uint turn) {
+    public void setTurn(int turn) {
         this.turn = turn;
     }
 
-    public uint getMaxturn() {
+    public int getMaxturn() {
         return maxturn;
     }
 
-    public void setMaxturn(uint maxturn) {
+    public void setMaxturn(int maxturn) {
         this.maxturn = maxturn;
     }
 
@@ -63,9 +63,6 @@ public abstract class Game {
 
     public void setRunning(boolean isRunning) {
         this.isRunning = isRunning;
-    }
-
-
-  
+    }  
 
 }
