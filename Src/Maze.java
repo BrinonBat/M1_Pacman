@@ -163,7 +163,6 @@ public class Maze implements Serializable, Cloneable {
 	public void setFood(int x, int y, boolean b) {
 		food[x][y] = b;
 	}
-	
 
 	/**
 	 * Permet de savoir si il y a une capsule
@@ -177,7 +176,6 @@ public class Maze implements Serializable, Cloneable {
 	public void setCapsule(int x, int y, boolean b) {
 		capsules[x][y] = b;
 	}
-	
 
 	/**
 	 * Renvoie le nombre de pacmans
@@ -245,10 +243,9 @@ public class Maze implements Serializable, Cloneable {
 		return s;
 	}
 
-
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return (Maze) super.clone();
 	}
-	
+
 }

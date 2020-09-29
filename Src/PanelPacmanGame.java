@@ -37,7 +37,7 @@ public class PanelPacmanGame extends JPanel {
 	private ArrayList<PositionAgent> ghosts_pos;
 
 	private boolean ghostsScarred;
-	
+
 	private static int sa = 0;
 	private static int fa = 0;
 
@@ -66,15 +66,13 @@ public class PanelPacmanGame extends JPanel {
 			for (int y = 0; y < sy; y++) {
 				if (m.isWall(x, y)) {
 					g.setColor(wallColor2);
-					g.fillRect((int) posx, (int) posy, (int) (stepx + 1),
-							(int) (stepy + 1));
+					g.fillRect((int) posx, (int) posy, (int) (stepx + 1), (int) (stepy + 1));
 					g.setColor(wallColor);
 					double nsx = stepx * 0.5;
 					double nsy = stepy * 0.5;
 					double npx = (stepx - nsx) / 2.0;
 					double npy = (stepy - nsy) / 2.0;
-					g.fillRect((int) (npx + posx), (int) (npy + posy),
-							(int) (nsx), (int) nsy);
+					g.fillRect((int) (npx + posx), (int) (npy + posy), (int) (nsx), (int) nsy);
 				}
 				if (m.isFood(x, y)) {
 					g.setColor(colorFood);
@@ -82,8 +80,7 @@ public class PanelPacmanGame extends JPanel {
 					double nsy = stepy * sizeFood;
 					double npx = (stepx - nsx) / 2.0;
 					double npy = (stepy - nsy) / 2.0;
-					g.fillOval((int) (npx + posx), (int) (npy + posy),
-							(int) (nsx), (int) nsy);
+					g.fillOval((int) (npx + posx), (int) (npy + posy), (int) (nsx), (int) nsy);
 				}
 				if (m.isCapsule(x, y)) {
 					g.setColor(colorCapsule);
@@ -91,8 +88,7 @@ public class PanelPacmanGame extends JPanel {
 					double nsy = stepy * sizeCapsule;
 					double npx = (stepx - nsx) / 2.0;
 					double npy = (stepy - nsy) / 2.0;
-					g.fillOval((int) (npx + posx), (int) (npy + posy),
-							(int) (nsx), (int) nsy);
+					g.fillOval((int) (npx + posx), (int) (npy + posy), (int) (nsx), (int) nsy);
 				}
 				posy += stepy;
 			}
@@ -114,30 +110,28 @@ public class PanelPacmanGame extends JPanel {
 		}
 	}
 
-	void drawPacmans(Graphics g, int px, int py, int pacmanDirection,
-			Color color) {
+	void drawPacmans(Graphics g, int px, int py, int pacmanDirection, Color color) {
 
 		// si pacman est en vie
-		if((px != -1) || (py != -1)){
-		
+		if ((px != -1) || (py != -1)) {
+
 			int dx = getSize().width;
 			int dy = getSize().height;
-	
+
 			int sx = m.getSizeX();
 			int sy = m.getSizeY();
 			double stepx = dx / (double) sx;
 			double stepy = dy / (double) sy;
-	
+
 			double posx = px * stepx;
 			double posy = py * stepy;
-	
+
 			g.setColor(color);
 			double nsx = stepx * sizePacman;
 			double nsy = stepy * sizePacman;
 			double npx = (stepx - nsx) / 2.0;
 			double npy = (stepy - nsy) / 2.0;
-			
-	
+
 			if (pacmanDirection == Maze.NORTH) {
 				sa = 70;
 				fa = -320;
@@ -154,58 +148,52 @@ public class PanelPacmanGame extends JPanel {
 				sa = 160;
 				fa = -320;
 			}
-		
-	
-			g.fillArc((int) (npx + posx), (int) (npy + posy), (int) (nsx),
-					(int) nsy, sa, fa);
+
+			g.fillArc((int) (npx + posx), (int) (npy + posy), (int) (nsx), (int) nsy, sa, fa);
 		}
 
 	}
 
 	void drawGhosts(Graphics g, int px, int py, Color color) {
 
-		if((px != -1) || (py != -1)){
+		if ((px != -1) || (py != -1)) {
 			int dx = getSize().width;
 			int dy = getSize().height;
-	
+
 			int sx = m.getSizeX();
 			int sy = m.getSizeY();
 			double stepx = dx / (double) sx;
 			double stepy = dy / (double) sy;
-	
+
 			double posx = px * stepx;
 			double posy = py * stepy;
-	
+
 			g.setColor(color);
-	
+
 			double nsx = stepx * sizePacman;
 			double nsy = stepy * sizePacman;
 			double npx = (stepx - nsx) / 2.0;
 			double npy = (stepy - nsy) / 2.0;
-	
-			g.fillArc((int) (posx + npx), (int) (npy + posy), (int) (nsx),
-					(int) (nsy), 0, 180);
-			g.fillRect((int) (posx + npx), (int) (npy + posy + nsy / 2.0 - 1),
-					(int) (nsx), (int) (nsy * 0.666));
+
+			g.fillArc((int) (posx + npx), (int) (npy + posy), (int) (nsx), (int) (nsy), 0, 180);
+			g.fillRect((int) (posx + npx), (int) (npy + posy + nsy / 2.0 - 1), (int) (nsx), (int) (nsy * 0.666));
 			g.setColor(Color.BLACK);
-			g.fillOval((int) (posx + npx + nsx / 5.0),
-					(int) (npy + posy + nsy / 3.0), 4, 4);
-			g.fillOval((int) (posx + npx + 3 * nsx / 5.0),
-					(int) (npy + posy + nsy / 3.0), 4, 4);
-	
+			g.fillOval((int) (posx + npx + nsx / 5.0), (int) (npy + posy + nsy / 3.0), 4, 4);
+			g.fillOval((int) (posx + npx + 3 * nsx / 5.0), (int) (npy + posy + nsy / 3.0), 4, 4);
+
 			g.setColor(Color.black);
 		}
 
 	}
 
-	public Maze getMaze(){
+	public Maze getMaze() {
 		return m;
 	}
-	
-	public void setMaze(Maze maze){
+
+	public void setMaze(Maze maze) {
 		this.m = maze;
 	}
-	
+
 	public void setGhostsScarred(boolean ghostsScarred) {
 		this.ghostsScarred = ghostsScarred;
 	}
@@ -215,7 +203,7 @@ public class PanelPacmanGame extends JPanel {
 	}
 
 	public void setPacmans_pos(ArrayList<PositionAgent> pacmans_pos) {
-		this.pacmans_pos = pacmans_pos;				
+		this.pacmans_pos = pacmans_pos;
 	}
 
 	public ArrayList<PositionAgent> getGhosts_pos() {
@@ -226,5 +214,4 @@ public class PanelPacmanGame extends JPanel {
 		this.ghosts_pos = ghosts_pos;
 	}
 
-	
 }

@@ -1,63 +1,58 @@
 public abstract class Game implements Runnable {
-    private int turn ;
+    private int turn;
     private int maxturn;
-    private long time ;
+    private long time;
     private boolean isRunning;
     private Thread thread;
 
-    //Methode Abstraite
+    // Methode Abstraite
     public abstract void initialiseGame();
+
     public abstract void takeTurn();
+
     public abstract boolean gameContinue();
+
     public abstract void gameOver();
 
-    //Methode concrète
+    // Methode concrète
     public void init() {
         this.turn = 0;
         this.isRunning = true;
         initialiseGame();
     }
 
-    public void step()
-    {
-        if(gameContinue() == true)
-        {
+    public void step() {
+        if (gameContinue() == true) {
             isRunning = false;
             gameOver();
-        } 
-        else
-        {
+        } else {
             this.turn = this.turn + 1;
             takeTurn();
         }
     }
 
-    public void run()
-    {
-        while( isRunning != false )
-        {
+    public void run() {
+        while (isRunning != false) {
             step();
-            
-            try
-            {
+
+            try {
                 Thread.sleep(time);
-            }
-            catch(Exception e)
-            {
-                System.out.println("Erreur : "+e.getMessage());
+            } catch (Exception e) {
+                System.out.println("Erreur : " + e.getMessage());
             }
         }
     }
 
-    public void pause(){ isRunning = false ; }
+    public void pause() {
+        isRunning = false;
+    }
 
     public int getTurn() {
         return turn;
     }
 
+    // Getter et Setter
 
-    //Getter et Setter
-    
     public void setTurn(int turn) {
         this.turn = turn;
     }
@@ -76,10 +71,10 @@ public abstract class Game implements Runnable {
 
     public void setRunning(boolean isRunning) {
         this.isRunning = isRunning;
-    }  
+    }
 
-    public void lauch(){
-        isRunning = true ;
+    public void lauch() {
+        isRunning = true;
         thread = new Thread(this);
         thread.run();
     }
