@@ -1,13 +1,13 @@
-package view;
+//package view;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 
-import agent.PositionAgent;
+//import agent.PositionAgent;
 
-import motor.Maze;
+//import motor.Maze;
 
 public class PanelPacmanGame extends JPanel {
 
