@@ -9,11 +9,12 @@ public class ViewCommand extends JFrame {
         JFrame jFrame=new JFrame();
         jFrame.setTitle("Command");
         jFrame.setSize(new Dimension(700, 700));
+        jFrame.setVisible(true);
         Dimension windowSize=jFrame.getSize();
         GraphicsEnvironment ge=GraphicsEnvironment.getLocalGraphicsEnvironment();
         Point centerPoint=ge.getCenterPoint();
-        int dx=centerPoint.x−windowSize.width/ 2 ;
-        int dy=centerPoint.y−windowSize.height/ 2−350;
+        int dx=centerPoint.x-windowSize.width/ 2 ;
+        int dy=centerPoint.y-windowSize.height/ 2-350;
         jFrame.setLocation(dx,dy);
     }
 
