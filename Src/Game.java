@@ -37,7 +37,15 @@ public abstract class Game implements Runnable {
         while( isRunning != false )
         {
             step();
-            Thread.sleep(time);
+            
+            try
+            {
+                Thread.sleep(time);
+            }
+            catch(Exception e)
+            {
+                System.out.println("Erreur : "+e.getMessage());
+            }
         }
     }
 
@@ -70,7 +78,7 @@ public abstract class Game implements Runnable {
         this.isRunning = isRunning;
     }  
 
-    public lauch(){
+    public void lauch(){
         isRunning = true ;
         thread = new Thread(this);
         thread.run();
