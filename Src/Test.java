@@ -2,7 +2,9 @@
 public class Test {
 
     public static void main(String[] args) {
-     try{
+     
+    ViewSimpleGame game = new ViewSimpleGame();
+    /* try{
       Maze labyrinthe = new Maze("../Layouts/bigConers.lay");
       PanelPacmanGame pacmanGame = new PanelPacmanGame(labyrinthe);
      }
@@ -10,6 +12,6 @@ public class Test {
      {
          System.out.println("Il y'a une erreur du type : "+ e.getMessage());
      }
-   
+   */
     }
 }
