@@ -10,6 +10,5 @@ public class Test {
      {
          System.out.println("Il y'a une erreur du type : "+ e.getMessage());
      }
-   
     }
 }
