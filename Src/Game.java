@@ -1,7 +1,9 @@
-public abstract class Game {
+public abstract class Game implements Runnable {
     private int turn ;
     private int maxturn;
+    private long time ;
     private boolean isRunning;
+    private Thread thread;
 
     //Methode Abstraite
     public abstract void initialiseGame();
@@ -33,7 +35,10 @@ public abstract class Game {
     public void run()
     {
         while( isRunning != false )
+        {
             step();
+            Thread.sleep(time);
+        }
     }
 
     public void pause(){ isRunning = false ; }
@@ -64,5 +69,11 @@ public abstract class Game {
     public void setRunning(boolean isRunning) {
         this.isRunning = isRunning;
     }  
+
+    public lauch(){
+        isRunning = true ;
+        thread = new Thread(this);
+        thread.run();
+    }
 
 }
