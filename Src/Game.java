@@ -10,7 +10,7 @@ public abstract class Game {
     public abstract void gameOver();
 
     //Methode concrète
-    public void Init(int turn, int maxturn, boolean isRunning) {
+    public void init() {
         this.turn = 0;
         this.isRunning = true;
         initialiseGame();
