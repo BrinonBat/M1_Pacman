@@ -3,7 +3,7 @@ import java.awt.Toolkit;
 
 import javax.swing.JFrame;
 
-public class ViewSimpleGame {
+public class ViewSimpleGame extends JFrame{
 
 	public ViewSimpleGame() {
             JFrame window = new JFrame();
