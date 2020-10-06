@@ -5,14 +5,13 @@ public class Test {
      
     ViewSimpleGame game = new ViewSimpleGame();
     ViewCommand command = new ViewCommand();
-    /* try{
-      Maze labyrinthe = new Maze("../Layouts/bigConers.lay");
+    try{
+      Maze labyrinthe = new Maze("../Layouts/bigCorners.lay");
       PanelPacmanGame pacmanGame = new PanelPacmanGame(labyrinthe);
      }
      catch(Exception e)
      {
          System.out.println("Il y'a une erreur du type : "+ e.getMessage());
      }
-   */
     }
 }
