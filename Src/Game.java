@@ -1,9 +1,12 @@
-public abstract class Game implements Runnable {
+import java.util.ArrayList;
+
+public abstract class Game implements Runnable, Observable {
     private int turn;
     private int maxturn;
     private long time;
     private boolean isRunning;
     private Thread thread;
+    private ArrayList<Observer> observers;
 
     // Methode Abstraite
     public abstract void initialiseGame();
@@ -15,9 +18,11 @@ public abstract class Game implements Runnable {
     public abstract void gameOver();
 
     // Methode concrète
+
     public void init() {
         this.turn = 0;
         this.isRunning = true;
+        this.observers= new ArrayList<Observer>();
         initialiseGame();
     }
 
@@ -29,6 +34,7 @@ public abstract class Game implements Runnable {
             this.turn = this.turn + 1;
             takeTurn();
         }
+        this.notifyObservers();
     }
 
     public void run() {
@@ -43,6 +49,13 @@ public abstract class Game implements Runnable {
         }
     }
 
+    public void notifyObservers(){
+        for(int i = 0; i< observers.size(); i++) {
+			Observer observer = observers.get(i);
+			observer.actualise();
+		}
+    }
+
     public void pause() {
         isRunning = false;
     }
@@ -52,6 +65,14 @@ public abstract class Game implements Runnable {
     }
 
     // Getter et Setter
+
+    public void addObserver(Observer obs){
+        observers.add(obs);
+    }
+
+    public void deleteObserver(Observer obs){
+        observers.remove(obs);
+    }
 
     public void setTurn(int turn) {
         this.turn = turn;
@@ -77,6 +98,14 @@ public abstract class Game implements Runnable {
         isRunning = true;
         thread = new Thread(this);
         thread.run();
+    }
+
+    public long getTime(){
+        return time;
+    }
+
+    public void setTime(long time){
+        this.time=time;
     }
 
 }
