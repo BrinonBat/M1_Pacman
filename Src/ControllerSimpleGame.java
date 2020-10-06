@@ -1,3 +1,4 @@
+
 public class ControllerSimpleGame implements InterfaceController{
    
     private Game game;
