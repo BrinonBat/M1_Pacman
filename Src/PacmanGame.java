@@ -37,10 +37,12 @@ public class PacmanGame extends Game{
     }
 
     public boolean gameContinue() {
-        return true;
+        return false;
     }
 
     public void gameOver() {
         System.out.println("Le jeu est fini !!! ");
     }
+
+    public Maze getMaze(){return map;}
 }

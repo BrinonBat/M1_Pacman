@@ -70,7 +70,7 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
         contbuttonBas.add(slider);
 
         buttonBas.add(contbuttonBas);
-        buttonBas.add(new JLabel("Turn  :", JLabel.CENTER));
+        buttonBas.add(new JLabel("Turn  :"+controller.getGame().getTurn(), JLabel.CENTER));
 
         jFrame.add(buttonHaut);
         jFrame.add(buttonBas);
