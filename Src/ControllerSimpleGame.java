@@ -5,7 +5,7 @@ public class ControllerSimpleGame implements InterfaceController{
 
     public ControllerSimpleGame (Game game){
         this.game = game;
-        ViewSimpleGame gameView = new ViewSimpleGame();
+        ViewPacmanGame gameView = new ViewPacmanGame();
         ViewCommand commandView = new ViewCommand();
     }
 
