@@ -6,7 +6,7 @@ public class Test {
       try{
         Maze labyrinthe = new Maze("Layouts/bigCorners.lay");
         ViewPacmanGame pacman = new ViewPacmanGame(labyrinthe);
-
+        ViewCommand commands= new ViewCommand();
       }
       catch(Exception e){
           System.out.println("Il y'a une erreur du type : "+ e.getMessage());
