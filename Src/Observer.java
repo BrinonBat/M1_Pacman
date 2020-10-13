@@ -1,3 +1,3 @@
 public interface Observer {
-    void actualise();
+    public abstract void actualise();
 }
