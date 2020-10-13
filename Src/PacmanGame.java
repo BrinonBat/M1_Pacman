@@ -27,6 +27,7 @@ public class PacmanGame extends Game{
         agents.add(new Fantome(map.getGhosts_start().get(i)));
         }
         ViewPacmanGame pacman = new ViewPacmanGame(map);
+        addObserver(pacman);
     }
 
     public void takeTurn() {

@@ -26,7 +26,6 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
     public ViewCommand(ControllerPacmanGame controller) {
 
         this.controller = controller;
-
         JFrame jFrame = new JFrame();
         jFrame.setTitle("Command");
         jFrame.setSize(new Dimension(700, 700));
@@ -79,6 +78,7 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
         jFrame.setVisible(true);
 
         
+        this.controller.getGame().addObserver(this);
 
     }
 

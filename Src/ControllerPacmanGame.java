@@ -9,16 +9,7 @@ public class ControllerPacmanGame implements InterfaceController {
     }
 
     public void start(){
-
-        try
-        {
-            game.init();
-        }
-        catch(Exception e)
-        {
-            System.out.println("Problème dans la methode start ");
-        }
-        
+        game.init();
     }
     
     public void run(){
@@ -30,4 +21,6 @@ public class ControllerPacmanGame implements InterfaceController {
     public void setTime(long time){
         game.setTime(time);
     }
+
+    public Game getGame(){return game;}
 }
