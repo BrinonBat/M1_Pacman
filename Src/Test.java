@@ -2,8 +2,7 @@
 public class Test {
 
     public static void main(String[] args) {
-      
-      ViewCommand game = new ViewCommand();
-    
+      PacmanGame game = new PacmanGame();
+      ViewCommand view = new ViewCommand(new ControllerPacmanGame(game));
     }
 }

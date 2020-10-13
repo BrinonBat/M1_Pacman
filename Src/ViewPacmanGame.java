@@ -22,10 +22,10 @@ public class ViewPacmanGame implements Observer {
 
         window.setVisible(true);
     }
-
-    public void actualise(){
-        
+    
+    public void actualise()
+    {
+        System.out.println("Actutalisation");
     }
-
     
 }

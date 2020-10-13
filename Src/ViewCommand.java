@@ -16,13 +16,17 @@ import javax.swing.JLabel;
 
 import java.awt.GridLayout;
 
-public class ViewCommand extends JFrame implements ActionListener {
+public class ViewCommand extends JFrame implements ActionListener,Observer {
     private JButton restart;
     private JButton run;
     private JButton step;
     private JButton pause;
+    private ControllerPacmanGame controller;
 
-    public ViewCommand() {
+    public ViewCommand(ControllerPacmanGame controller) {
+
+        this.controller = controller;
+
         JFrame jFrame = new JFrame();
         jFrame.setTitle("Command");
         jFrame.setSize(new Dimension(700, 700));
@@ -74,6 +78,8 @@ public class ViewCommand extends JFrame implements ActionListener {
 
         jFrame.setVisible(true);
 
+        
+
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -82,8 +88,8 @@ public class ViewCommand extends JFrame implements ActionListener {
             System.out.println("Restart pushed");
         else if (source == run) {
             try {
-                Maze labyrinthe = new Maze("Layouts/bigCorners.lay");
-                ViewPacmanGame pacman = new ViewPacmanGame(labyrinthe);
+                System.out.println("Lancement de start !!");
+                controller.start();
             } catch (Exception e1) {
                 System.out.println(e1.getMessage());
             }
