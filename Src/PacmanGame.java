@@ -11,7 +11,7 @@ public class PacmanGame extends Game{
         agents = new ArrayList<Agent>();
         try{
             map = new Maze("Layouts/bigCorners.lay");
-            ViewPacmanGame pacman = new ViewPacmanGame(map);
+            
         }catch (Exception e) {
             System.out.println("Erreur : " + e.getMessage());
         }
@@ -26,6 +26,7 @@ public class PacmanGame extends Game{
         for(int i = 0; i< map.getInitNumberOfGhosts(); i++){
         agents.add(new Fantome(map.getGhosts_start().get(i)));
         }
+        ViewPacmanGame pacman = new ViewPacmanGame(map);
     }
 
     public void takeTurn() {
