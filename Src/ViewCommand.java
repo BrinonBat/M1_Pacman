@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 
 import java.awt.GridLayout;
 
-public class ViewCommand extends JFrame {
+public class ViewCommand extends JFrame implements Observer {
 
     public ViewCommand(){
         JFrame jFrame = new JFrame();
@@ -60,6 +60,10 @@ public class ViewCommand extends JFrame {
 
 
         jFrame.setVisible(true);
+    }
+
+    public void actualise(){
+        
     }
 
 }
