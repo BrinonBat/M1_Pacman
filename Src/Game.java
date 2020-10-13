@@ -19,11 +19,11 @@ public abstract class Game implements Runnable, Observable {
 
     // Methode concrète
 
-    public void init(Maze maze) {
+    public void init() {
         this.turn = 0;
         this.isRunning = true;
         this.observers= new ArrayList<Observer>();
-        initialiseGame(maze);
+        initialiseGame();
     }
 
     public void step() {

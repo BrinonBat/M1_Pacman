@@ -6,14 +6,19 @@ public class PacmanGame extends Game{
     private Maze map;
     private ArrayList<Agent> agents;
 
-    public PacmanGame(Maze maze)
+    public PacmanGame()
     {
         agents = new ArrayList<Agent>();
-        map = new Maze("Layouts/bigCorners.lay");
-        ViewPacmanGame pacman = new ViewPacmanGame(map);
+        try{
+            map = new Maze("Layouts/bigCorners.lay");
+            ViewPacmanGame pacman = new ViewPacmanGame(map);
+        }catch (Exception e) {
+            System.out.println("Erreur : " + e.getMessage());
+        }
+        
     }
 
-    public void initialiseGame(Maze maze) {
+    public void initialiseGame() {
       
        for(int i = 0; i< map.getInitNumberOfPacmans(); i++){
         agents.add(new Pacman(map.getPacman_start().get(i)));
