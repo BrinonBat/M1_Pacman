@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-public class ViewPacmanGame {
+public class ViewPacmanGame implements Observer {
 
     ViewPacmanGame(Maze maze)
     {
@@ -21,6 +21,10 @@ public class ViewPacmanGame {
         window.add(pacmangame);
 
         window.setVisible(true);
+    }
+
+    void actualise(){
+        
     }
 
     
