@@ -1,6 +1,6 @@
 import javax.swing.JFrame;
 
-public class ControllerPacmanGame implements InterfaceController {
+public class ControllerPacmanGame implements InterfaceControleur {
    
     private Game game;
 
@@ -9,7 +9,8 @@ public class ControllerPacmanGame implements InterfaceController {
     }
 
     public void start(){
-        game.init();
+        System.out.println("je suis dans start");
+        game.init();  
     }
     
     public void run(){
@@ -22,5 +23,11 @@ public class ControllerPacmanGame implements InterfaceController {
         game.setTime(time);
     }
 
-    public Game getGame(){return game;}
+    public Game getGame(){
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
 }

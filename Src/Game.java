@@ -26,17 +26,20 @@ public abstract class Game implements Runnable, Observable {
     public void init() {
         this.turn = 0;
         this.isRunning = true;
-        initialiseGame();
+        if(this instanceof PacmanGame ){ 
+            System.out.println("Je vais dans InitialiseGame");
+            initialiseGame(); //Classe PacmanGame
+        }
     }
 
     public void step() {
         if (gameContinue() == true) {
             isRunning = false;
             gameOver();
-        } else {
-            this.turn = this.turn + 1;
-            takeTurn();
-        }
+        } 
+
+        this.turn = this.turn + 1;
+        takeTurn();
         this.notifyObservers();
     }
 
@@ -54,8 +57,8 @@ public abstract class Game implements Runnable, Observable {
 
     public void notifyObservers(){
         for(int i = 0; i< observers.size(); i++) {
-			Observer observer = observers.get(i);
-			observer.actualise();
+            Observer observer = observers.get(i);
+            observer.update(this);
 		}
     }
 
