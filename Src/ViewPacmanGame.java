@@ -30,7 +30,7 @@ public class ViewPacmanGame implements Observer {
     }
     
     public void update(Observable obs){
-        Game game = (Game)obs;
+        PacmanGame game = (PacmanGame)obs;
         //Update du game
         controller.setGame(game);
     }

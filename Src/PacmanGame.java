@@ -24,6 +24,9 @@ public class PacmanGame extends Game{
     //Place les pacmans et les fontomes sur le terrain
     public void initialiseGame() {
       
+        this.setTurn(0);
+        this.setRunning(true);
+
         for(int i = 0; i< map.getInitNumberOfPacmans(); i++){
         pacmans.add(new Pacman(map.getPacman_start().get(i)));
         }

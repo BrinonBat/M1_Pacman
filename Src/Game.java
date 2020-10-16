@@ -23,15 +23,6 @@ public abstract class Game implements Runnable, Observable {
         this.observers=new ArrayList<Observer>();
     }
 
-    public void init() {
-        this.turn = 0;
-        this.isRunning = true;
-        if(this instanceof PacmanGame ){ 
-            System.out.println("Je vais dans InitialiseGame");
-            initialiseGame(); //Classe PacmanGame
-        }
-    }
-
     public void step() {
         if (gameContinue() == true) {
             isRunning = false;
