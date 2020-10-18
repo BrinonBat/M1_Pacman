@@ -17,6 +17,8 @@ public abstract class Game implements Runnable, Observable {
 
     public abstract void gameOver();
 
+    public abstract void Agentmove();
+
     // Methode concrète
 
     public Game(){
@@ -24,11 +26,11 @@ public abstract class Game implements Runnable, Observable {
     }
 
     public void step() {
-        if (gameContinue() == true) {
+        if (turn > 5) {
             isRunning = false;
             gameOver();
         } 
-
+        
         this.turn = this.turn + 1;
         takeTurn();
         this.notifyObservers();
@@ -37,7 +39,6 @@ public abstract class Game implements Runnable, Observable {
     public void run() {
         while (isRunning != false) {
             step();
-
             try {
                 Thread.sleep(time);
             } catch (Exception e) {
@@ -50,7 +51,7 @@ public abstract class Game implements Runnable, Observable {
         for(int i = 0; i< observers.size(); i++) {
             Observer observer = observers.get(i);
             observer.update(this);
-		}
+        }
     }
 
     public void pause() {

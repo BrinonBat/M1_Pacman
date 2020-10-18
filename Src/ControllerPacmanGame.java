@@ -9,12 +9,12 @@ public class ControllerPacmanGame implements InterfaceControleur {
     }
 
     public void start(){
-        System.out.println("je suis dans start");
         game.initialiseGame();  
     }
     
     public void run(){
-        game.run();
+        game.Agentmove();
+        game.notifyObservers();
     }
     public void pause(){
         game.pause();

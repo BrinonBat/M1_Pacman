@@ -1,12 +1,13 @@
 import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 
 public class ViewPacmanGame implements Observer {
 
     private JFrame window ;
     private ControllerPacmanGame controller;
-    //private JPanel controlePanel;
+    private PanelPacmanGame view;
 
 
     ViewPacmanGame(Maze maze)
@@ -21,18 +22,32 @@ public class ViewPacmanGame implements Observer {
         window.setSize(width/2 , height/2);
         window.setLocationRelativeTo(null);
 
-        PanelPacmanGame view = new PanelPacmanGame(maze);
+        view = new PanelPacmanGame(maze);
         window.add(view);
 
         window.setVisible(true);
         /**********Fin Creation de l'interface graphique  ***********/
 
+        System.out.println(maze.toString());
+
     }
     
     public void update(Observable obs){
-        PacmanGame game = (PacmanGame)obs;
-        //Update du game
-        controller.setGame(game);
+        System.out.println("Refreshing page...");
+        PacmanGame currentGame = (PacmanGame)obs;
+        Maze map = currentGame.getMaze();
+        ArrayList<PositionAgent> positionPacmans = new ArrayList<PositionAgent>();
+        for( Pacman p : currentGame.getPacmans())
+        {
+            positionPacmans.add(p.getPosition());
+        }
+        map.setPacman_start(positionPacmans);
+        System.out.println(map.toString());
+        view = new PanelPacmanGame(map);
+        window.add(view);
+        window.setVisible(true);
+
+
     }
 
     

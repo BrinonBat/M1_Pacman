@@ -213,7 +213,7 @@ public class Maze implements Serializable, Cloneable {
 
 	public String toString() {
 		String s = "Maze\n";
-		s += plateauToString();
+		//s += plateauToString();
 		s += "\nPosition agents fantom :";
 		for (PositionAgent pa : ghosts_start) {
 			s += pa + " ";

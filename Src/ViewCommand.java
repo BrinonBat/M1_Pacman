@@ -21,6 +21,7 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
     private JButton run;
     private JButton step;
     private JButton pause;
+    private JLabel turn;
     private ControllerPacmanGame controller;
 
     public ViewCommand(ControllerPacmanGame controller) {
@@ -47,6 +48,7 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
         run = new JButton("", new ImageIcon("icones/icon_run.png"));
         step = new JButton("", new ImageIcon("icones/icon_step.png"));
         pause = new JButton("", new ImageIcon("icones/icon_pause.png"));
+        turn = new JLabel("Turn  :"+controller.getGame().getTurn(), JLabel.CENTER);
 
         restart.addActionListener(this);
         run.addActionListener(this);
@@ -69,7 +71,7 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
         contbuttonBas.add(slider);
 
         buttonBas.add(contbuttonBas);
-        buttonBas.add(new JLabel("Turn  :"+controller.getGame().getTurn(), JLabel.CENTER));
+        buttonBas.add(turn);
 
         jFrame.add(buttonHaut);
         jFrame.add(buttonBas);
@@ -87,7 +89,6 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
             System.out.println("Restart pushed");
         else if (source == run) {
             try {
-                System.out.println("Lancement de start !!");
                 controller.start();
             } catch (Exception e1) {
                 System.out.println(e1.getMessage());
@@ -95,7 +96,8 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
         }
         else if( source == step)
         {
-            System.out.println("step pushed");
+            System.out.println("step pushed");    
+            controller.run();       
         }
         else if ( source == pause )
         {
@@ -105,7 +107,8 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
     }
 
     public void update(Observable obs){
-        
+        PacmanGame game = (PacmanGame) obs;
+        turn.setText("Turn :"+game.getTurn());
     }
 
 }

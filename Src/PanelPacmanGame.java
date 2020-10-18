@@ -31,15 +31,15 @@ public class PanelPacmanGame extends JPanel {
 	private double sizeCapsule = 0.7;
 	private Color colorCapsule = Color.red;
 
-	private Maze m;
-
-	private ArrayList<PositionAgent> pacmans_pos;
-	private ArrayList<PositionAgent> ghosts_pos;
-
 	private boolean ghostsScarred;
 
 	private static int sa = 0;
 	private static int fa = 0;
+
+	private Maze m;
+
+	private ArrayList<PositionAgent> pacmans_pos;
+	private ArrayList<PositionAgent> ghosts_pos;
 
 	public PanelPacmanGame(Maze maze) {
 		this.m = maze;

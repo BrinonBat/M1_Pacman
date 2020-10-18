@@ -7,5 +7,21 @@ public abstract class Agent {
         action = new AgentAction(4);
     }
 
+    public AgentAction getAction() {
+        return action;
+    }
+
+    public void setAction(AgentAction action) {
+        this.action = action;
+    }
+
+    public PositionAgent getPosition() {
+        return position;
+    }
+
+    public void setPosition(PositionAgent position) {
+        this.position = position;
+    }
+
    
 }
