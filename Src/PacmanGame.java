@@ -2,7 +2,6 @@
 import java.util.ArrayList;
 
 public class PacmanGame extends Game {
-
     private Maze map;
     // le prof à dit qu'il valait mieux faire deux listes
     private ArrayList<Pacman> pacmans;
@@ -20,19 +19,17 @@ public class PacmanGame extends Game {
 
     }
 
-    // Place les pacmans et les fontomes sur le terrain
+    // Place les pacmans et les fantomes sur le terrain
     public void initialiseGame() {
-        this.setTurn(0);
-        this.setRunning(true);
-
         for (int i = 0; i < map.getInitNumberOfPacmans(); i++) {
             pacmans.add(new Pacman(map.getPacman_start().get(i)));
         }
         for (int i = 0; i < map.getInitNumberOfGhosts(); i++) {
             ghosts.add(new Ghost(map.getGhosts_start().get(i)));
         }
-        ViewPacmanGame pacman = new ViewPacmanGame(map);
-        this.addObserver(pacman);
+        
+        this.setTurn(0);
+        this.setRunning(true);
     }
 
     public void takeTurn() {
@@ -50,38 +47,53 @@ public class PacmanGame extends Game {
     public Maze getMaze() {
         return map;
     }
-    //Methode qui fait bouge l'Agent
-    @Override
-    public void Agentmove() {
-        for( Pacman p : pacmans){
-            PositionAgent position = p.getPosition();
-            if( !map.isWall(position.getX()+1 , position.getY()))
-            {
-                position.setX(position.getX()+1);
-                p.setPosition(position);
-                p.getAction().set_direction(AgentAction.WEST);
-            }
-            else if( !map.isWall(position.getX()-1 , position.getY())){
-                position.setX(position.getX()-1);
-                p.setPosition(position);
-                p.getAction().set_direction(AgentAction.SOUTH);
-            }
-            else if( !map.isWall(position.getX() , position.getY()+1)){
-                position.setY(position.getY()+1);
-                p.setPosition(position);
-                p.getAction().set_direction(AgentAction.NORTH);
 
-            }
-            else if( !map.isWall(position.getX() , position.getY()-1)){
-                position.setY(position.getY()-1);
-                p.setPosition(position);
-                p.getAction().set_direction(AgentAction.EAST);
+    // Methode qui fait bouger l'Agent
+    @Override
+    public void Agentmove(int code) {
+       
+         for (Pacman p : pacmans) {
+            PositionAgent position = p.getPosition();
+        
+            switch(code){
+                case 1:{
+                    if (!map.isWall(position.getX() + 1, position.getY())) {
+                        position.setX(position.getX() + 1);
+                        p.setPosition(position);
+                        p.getAction().set_direction(AgentAction.WEST);
+                    }
+                    break;
+                }
+                case 2:{
+                    if (!map.isWall(position.getX() - 1, position.getY())) {
+                        position.setX(position.getX() - 1);
+                        p.setPosition(position);
+                        p.getAction().set_direction(AgentAction.EAST);
+                    } 
+                    break;
+                }
+                case 3:{
+                    if (!map.isWall(position.getX(), position.getY() + 1)) {
+                        position.setY(position.getY() + 1);
+                        p.setPosition(position);
+                        p.getAction().set_direction(AgentAction.NORTH);
+                    }
+                    break;
+                }
+                case 4:{
+                     if (!map.isWall(position.getX(), position.getY() - 1)) {
+                        position.setY(position.getY() - 1);
+                        p.setPosition(position);
+                        p.getAction().set_direction(AgentAction.SOUTH);
+                    }
+                }
             }
         }
-        setTurn(getTurn()+1);
+        setTurn(getTurn() + 1);
+        this.notifyObservers();
     }
 
-    //Getter and Setter
+    // Getter and Setter
 
     public Maze getMap() {
         return map;
@@ -107,17 +119,16 @@ public class PacmanGame extends Game {
         this.ghosts = ghosts;
     }
 
-    public String toString()
-    {
+    public String toString() {
         String s = "Maze\n";
         s += "\nPosition agents pacman :";
         for (Pacman pa : pacmans) {
-			s += pa.getPosition() + " ";
-		}
-		for (Ghost gs : ghosts) {
-			s += gs.getPosition() + " ";
-		}
-		return s;
+            s += pa.getPosition() + " ";
+        }
+        for (Ghost gs : ghosts) {
+            s += gs.getPosition() + " ";
+        }
+        return s;
     }
 
 }

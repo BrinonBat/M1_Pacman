@@ -17,7 +17,7 @@ public abstract class Game implements Runnable, Observable {
 
     public abstract void gameOver();
 
-    public abstract void Agentmove();
+    public abstract void Agentmove(int code);
 
     // Methode concrète
 
