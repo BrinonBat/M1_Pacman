@@ -1,5 +1,3 @@
-//package motor;
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -7,7 +5,6 @@ import java.io.InputStreamReader;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-//import agent.PositionAgent;
 
 public class Maze implements Serializable, Cloneable {
 
@@ -163,6 +160,7 @@ public class Maze implements Serializable, Cloneable {
 	public void setFood(int x, int y, boolean b) {
 		food[x][y] = b;
 	}
+	
 
 	/**
 	 * Permet de savoir si il y a une capsule
@@ -176,6 +174,7 @@ public class Maze implements Serializable, Cloneable {
 	public void setCapsule(int x, int y, boolean b) {
 		capsules[x][y] = b;
 	}
+	
 
 	/**
 	 * Renvoie le nombre de pacmans
@@ -213,7 +212,7 @@ public class Maze implements Serializable, Cloneable {
 
 	public String toString() {
 		String s = "Maze\n";
-		//s += plateauToString();
+		s += plateauToString();
 		s += "\nPosition agents fantom :";
 		for (PositionAgent pa : ghosts_start) {
 			s += pa + " ";
@@ -243,9 +242,10 @@ public class Maze implements Serializable, Cloneable {
 		return s;
 	}
 
+
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return (Maze) super.clone();
 	}
-
+	
 }

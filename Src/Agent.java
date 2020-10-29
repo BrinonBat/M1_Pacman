@@ -4,15 +4,15 @@ public abstract class Agent {
    
     Agent(PositionAgent pos){
         position = pos;
-        action = new AgentAction(4);
+        action = new AgentAction(3);
     }
 
     public AgentAction getAction() {
         return action;
     }
 
-    public void setAction(AgentAction action) {
-        this.action = action;
+    public void setAction(int action) {
+        this.action.set_direction(action);;
     }
 
     public PositionAgent getPosition() {

@@ -6,30 +6,32 @@ public class PacmanGame extends Game {
     // le prof à dit qu'il valait mieux faire deux listes
     private ArrayList<Pacman> pacmans;
     private ArrayList<Ghost> ghosts;
+    private int nbVie;
 
     // Initalise les données du PacmanGame
     public PacmanGame() {
         pacmans = new ArrayList<Pacman>();
         ghosts = new ArrayList<Ghost>();
         try {
-            map = new Maze("Layouts/bigCorners.lay");
+            String nomFichier = "originalClassic_oneFood_fivePacmans.lay";
+            map = new Maze("Layouts/"+nomFichier);
         } catch (Exception e) {
             System.out.println("Erreur : " + e.getMessage());
         }
-
     }
 
     // Place les pacmans et les fantomes sur le terrain
     public void initialiseGame() {
-        for (int i = 0; i < map.getInitNumberOfPacmans(); i++) {
+        for (int i = 0; i < map.getInitNumberOfPacmans(); i++) 
             pacmans.add(new Pacman(map.getPacman_start().get(i)));
-        }
-        for (int i = 0; i < map.getInitNumberOfGhosts(); i++) {
+        
+        for (int i = 0; i < map.getInitNumberOfGhosts(); i++) 
             ghosts.add(new Ghost(map.getGhosts_start().get(i)));
-        }
         
         this.setTurn(0);
         this.setRunning(true);
+        nbVie = ghosts.size();
+        System.out.println("Vous avez "+nbVie+" vies");
     }
 
     public void takeTurn() {
@@ -37,7 +39,7 @@ public class PacmanGame extends Game {
     }
 
     public boolean gameContinue() {
-        return false;
+        return nbVie >= 1 ? true:false;
     }
 
     public void gameOver() {
@@ -50,17 +52,15 @@ public class PacmanGame extends Game {
 
     // Methode qui fait bouger l'Agent
     @Override
-    public void Agentmove(int code) {
-       
+    public void MovePacman(int code) {
          for (Pacman p : pacmans) {
             PositionAgent position = p.getPosition();
-        
             switch(code){
                 case 1:{
                     if (!map.isWall(position.getX() + 1, position.getY())) {
                         position.setX(position.getX() + 1);
                         p.setPosition(position);
-                        p.getAction().set_direction(AgentAction.WEST);
+                        p.setAction(AgentAction.EAST);
                     }
                     break;
                 }
@@ -68,7 +68,7 @@ public class PacmanGame extends Game {
                     if (!map.isWall(position.getX() - 1, position.getY())) {
                         position.setX(position.getX() - 1);
                         p.setPosition(position);
-                        p.getAction().set_direction(AgentAction.EAST);
+                        p.setAction(AgentAction.EAST);
                     } 
                     break;
                 }
@@ -76,7 +76,7 @@ public class PacmanGame extends Game {
                     if (!map.isWall(position.getX(), position.getY() + 1)) {
                         position.setY(position.getY() + 1);
                         p.setPosition(position);
-                        p.getAction().set_direction(AgentAction.NORTH);
+                        p.setAction(AgentAction.NORTH);
                     }
                     break;
                 }
@@ -84,7 +84,7 @@ public class PacmanGame extends Game {
                      if (!map.isWall(position.getX(), position.getY() - 1)) {
                         position.setY(position.getY() - 1);
                         p.setPosition(position);
-                        p.getAction().set_direction(AgentAction.SOUTH);
+                        p.setAction(AgentAction.SOUTH);
                     }
                 }
             }
@@ -119,6 +119,9 @@ public class PacmanGame extends Game {
         this.ghosts = ghosts;
     }
 
+    public int getVie() { return nbVie ;} 
+    public void setVie(int v) { nbVie = v;}
+   
     public String toString() {
         String s = "Maze\n";
         s += "\nPosition agents pacman :";

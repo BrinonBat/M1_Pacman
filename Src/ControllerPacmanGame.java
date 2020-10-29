@@ -3,9 +3,11 @@ import javax.swing.JFrame;
 public class ControllerPacmanGame implements InterfaceControleur {
    
     private PacmanGame game;
+    //private Strategie strategie;
 
     public ControllerPacmanGame (PacmanGame game){
         this.game = game;
+        //strategie = new StrategieRandom(game);
     }
 
     public void start(){
@@ -15,6 +17,8 @@ public class ControllerPacmanGame implements InterfaceControleur {
     }
     
     public void run(){
+        game.run();
+        //strategie.run();
     }
     public void pause(){
         game.pause();
