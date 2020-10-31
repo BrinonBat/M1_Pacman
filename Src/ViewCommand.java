@@ -97,10 +97,11 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
             }
         }
         else if( source == step) {
-            System.out.println("step pushed");    
             controller.run();       
+            System.out.println("step pushed");    
         }
         else if ( source == pause ){
+            controller.getGame().setRunning(false);
             System.out.println("pause pushed");
         }
       

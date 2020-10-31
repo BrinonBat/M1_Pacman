@@ -48,7 +48,7 @@ public class PacmanGame extends Game {
             }  
     }
     public boolean gameContinue() {
-        return nbVie >= 1 ? true:false;
+        return nbVie >= 1 && isRunning() ? true:false;
     }
     public void gameOver() {
         System.out.println("Le jeu est fini !!! ");

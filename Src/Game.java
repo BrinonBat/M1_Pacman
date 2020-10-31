@@ -33,7 +33,7 @@ public abstract class Game implements Runnable, Observable {
     }
 
     public void run() {
-        while (turn < 10) {
+        while (gameContinue()) {
             step();
             try {
                 Thread.sleep(time);
