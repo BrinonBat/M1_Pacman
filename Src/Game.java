@@ -10,14 +10,11 @@ public abstract class Game implements Runnable, Observable {
 
     // Methode Abstraite
     public abstract void initialiseGame();
-
     public abstract void takeTurn();
-
     public abstract boolean gameContinue();
-
     public abstract void gameOver();
 
-    public abstract void MovePacman(int code);
+   // public abstract void MovePacman(int code);
 
     // Methode concrète
 
@@ -26,18 +23,17 @@ public abstract class Game implements Runnable, Observable {
     }
 
     public void step() {
-        if (turn > 5) {
+        if (!this.gameContinue()) {
             isRunning = false;
             gameOver();
         } 
-        
-        this.turn = this.turn + 1;
         takeTurn();
+        this.turn = this.turn + 1;
         this.notifyObservers();
     }
 
     public void run() {
-        while (isRunning != false) {
+        while (turn < 10) {
             step();
             try {
                 Thread.sleep(time);
@@ -95,7 +91,7 @@ public abstract class Game implements Runnable, Observable {
     public void lauch() {
         isRunning = true;
         thread = new Thread(this);
-        thread.run();
+        thread.start();
     }
 
     public long getTime(){

@@ -185,31 +185,24 @@ public class PanelPacmanGame extends JPanel {
 		}
 
 	}
-
 	public Maze getMaze() {
 		return m;
 	}
-
 	public void setMaze(Maze maze) {
 		this.m = maze;
 	}
-
 	public void setGhostsScarred(boolean ghostsScarred) {
 		this.ghostsScarred = ghostsScarred;
 	}
-
 	public ArrayList<PositionAgent> getPacmans_pos() {
 		return pacmans_pos;
 	}
-
 	public void setPacmans_pos(ArrayList<PositionAgent> pacmans_pos) {
 		this.pacmans_pos = pacmans_pos;
 	}
-
 	public ArrayList<PositionAgent> getGhosts_pos() {
 		return ghosts_pos;
 	}
-
 	public void setGhosts_pos(ArrayList<PositionAgent> ghosts_pos) {
 		this.ghosts_pos = ghosts_pos;
 	}

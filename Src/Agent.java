@@ -4,7 +4,7 @@ public abstract class Agent {
    
     Agent(PositionAgent pos){
         position = pos;
-        action = new AgentAction(3);
+        action = new AgentAction(4);
     }
 
     public AgentAction getAction() {

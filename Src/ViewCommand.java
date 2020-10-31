@@ -85,11 +85,13 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
 
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-        if (source == restart)
+        if (source == restart){
             System.out.println("Restart pushed");
+        }
         else if (source == run) {
             try {
                 controller.start();
+                run.setEnabled(false);
             } catch (Exception e1) {
                 System.out.println(e1.getMessage());
             }

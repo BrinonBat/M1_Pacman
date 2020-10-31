@@ -15,8 +15,8 @@ public class ViewPacmanGame implements Observer {
         this.controller = (ControllerPacmanGame) controller;
 
         ArrayList<PositionAgent> positionPacmans = new ArrayList<PositionAgent>();
-        int i = this.controller.getGame().getVie();
-        positionPacmans.add(this.controller.getGame().getPacmans().get(i/2).getPosition());
+        Pacman currentPacman =  this.controller.getGame().getPacmans().get(0);
+        positionPacmans.add(currentPacman.getPosition());
         maze.setPacman_start(positionPacmans);
         
         /********** Creation de l'interface graphique ***********/
@@ -31,36 +31,32 @@ public class ViewPacmanGame implements Observer {
         view = new PanelPacmanGame(maze);    
         window.add(view);
         window.addKeyListener(new KeyListener() {
-
             @Override
             public void keyPressed(KeyEvent e) {
                 switch(e.getKeyCode()){
                     case KeyEvent.VK_UP:
-                        getController().getGame().MovePacman(4);
+                        getController().getGame().moveAgent(currentPacman, new AgentAction(AgentAction.NORTH));;
                         break;
                     case KeyEvent.VK_RIGHT:
-                         getController().getGame().MovePacman(1);
+                         getController().getGame().moveAgent(currentPacman,new AgentAction(AgentAction.EAST));
                         break;
                     case KeyEvent.VK_DOWN:
-                         getController().getGame().MovePacman(3);
+                         getController().getGame().moveAgent(currentPacman,new AgentAction(AgentAction.SOUTH));
                         break;
                     case KeyEvent.VK_LEFT:
-                        getController().getGame().MovePacman(2);
+                        getController().getGame().moveAgent(currentPacman,new AgentAction(AgentAction.WEST));
                         break;
                 }
-
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
                 // TODO Auto-generated method stub
-
             }
 
             @Override
             public void keyTyped(KeyEvent e) {
                 // TODO Auto-generated method stub
-
             }
             
         });
@@ -74,22 +70,13 @@ public class ViewPacmanGame implements Observer {
 
     public void update(Observable obs) {
         PacmanGame currentGame = (PacmanGame) obs;
-        Maze map = currentGame.getMaze();
         ArrayList<PositionAgent> positionGhost = new ArrayList<PositionAgent>();
         ArrayList<PositionAgent> positionPacmans = new ArrayList<PositionAgent>();
-       
-        int i = currentGame.getVie();
-        positionPacmans.add(currentGame.getPacmans().get(i).getPosition());
-
+               
+        positionPacmans.add(currentGame.getPacmans().get(0).getPosition());
         for (Ghost g : currentGame.getGhosts()) positionGhost.add(g.getPosition());
         
-        map.setPacman_start(positionPacmans);
-        map.setGhosts_start(positionGhost);
-        //System.out.println(map.toString());
-        view = new PanelPacmanGame(map);
-        window.add(view);
-        window.setVisible(true);
-
+        view.repaint();
     }
 
     

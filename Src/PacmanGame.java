@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class PacmanGame extends Game {
     private Maze map;
@@ -19,7 +20,6 @@ public class PacmanGame extends Game {
             System.out.println("Erreur : " + e.getMessage());
         }
     }
-
     // Place les pacmans et les fantomes sur le terrain
     public void initialiseGame() {
         for (int i = 0; i < map.getInitNumberOfPacmans(); i++) 
@@ -30,98 +30,66 @@ public class PacmanGame extends Game {
         
         this.setTurn(0);
         this.setRunning(true);
-        nbVie = ghosts.size();
-        System.out.println("Vous avez "+nbVie+" vies");
+        this.setTime(2000);
+        nbVie = pacmans.size();
     }
-
     public void takeTurn() {
-        System.out.println("Tours " + getTurn() + " en cours ...");
+            System.out.println("Tours " + getTurn() + " en cours ...");  
+            for(Ghost g : ghosts){
+                boolean move = false;
+                while(!move){
+                    int i = 0 + (int)(Math.random() * ((3 - 0) + 1));
+                    AgentAction action =new AgentAction(i);
+                    if( isLegalMove(g, action)){
+                        moveAgent(g, action);
+                        move = true;
+                    }
+                }
+            }  
     }
-
     public boolean gameContinue() {
         return nbVie >= 1 ? true:false;
     }
-
     public void gameOver() {
         System.out.println("Le jeu est fini !!! ");
     }
-
     public Maze getMaze() {
         return map;
     }
-
-    // Methode qui fait bouger l'Agent
-    @Override
-    public void MovePacman(int code) {
-         for (Pacman p : pacmans) {
-            PositionAgent position = p.getPosition();
-            switch(code){
-                case 1:{
-                    if (!map.isWall(position.getX() + 1, position.getY())) {
-                        position.setX(position.getX() + 1);
-                        p.setPosition(position);
-                        p.setAction(AgentAction.EAST);
-                    }
-                    break;
-                }
-                case 2:{
-                    if (!map.isWall(position.getX() - 1, position.getY())) {
-                        position.setX(position.getX() - 1);
-                        p.setPosition(position);
-                        p.setAction(AgentAction.EAST);
-                    } 
-                    break;
-                }
-                case 3:{
-                    if (!map.isWall(position.getX(), position.getY() + 1)) {
-                        position.setY(position.getY() + 1);
-                        p.setPosition(position);
-                        p.setAction(AgentAction.NORTH);
-                    }
-                    break;
-                }
-                case 4:{
-                     if (!map.isWall(position.getX(), position.getY() - 1)) {
-                        position.setY(position.getY() - 1);
-                        p.setPosition(position);
-                        p.setAction(AgentAction.SOUTH);
-                    }
-                }
-            }
-        }
-        setTurn(getTurn() + 1);
-        this.notifyObservers();
+    public boolean isLegalMove(Agent agent,AgentAction action){
+        PositionAgent position = agent.getPosition();
+        return !map.isWall(position.getX()+action.get_vx(),position.getY()+action.get_vy()) ? true:false; 
     }
+    public void moveAgent(Agent agent,AgentAction action){
+        if(isLegalMove(agent, action)){
+            agent.getPosition().setX(agent.getPosition().getX()+action.get_vx());
+            agent.getPosition().setY(agent.getPosition().getY()+action.get_vy());
 
+            setTurn(getTurn() + 1);
+            this.notifyObservers();
+        }
+    }
     // Getter and Setter
-
     public Maze getMap() {
         return map;
     }
-
     public void setMap(Maze map) {
         this.map = map;
     }
-
     public ArrayList<Pacman> getPacmans() {
         return pacmans;
     }
-
     public void setPacmans(ArrayList<Pacman> pacmans) {
         this.pacmans = pacmans;
     }
-
     public ArrayList<Ghost> getGhosts() {
         return ghosts;
     }
-
     public void setGhosts(ArrayList<Ghost> ghosts) {
         this.ghosts = ghosts;
     }
-
     public int getVie() { return nbVie ;} 
-    public void setVie(int v) { nbVie = v;}
-   
+    public void setVie(int v) { nbVie = v;}   
     public String toString() {
         String s = "Maze\n";
         s += "\nPosition agents pacman :";
