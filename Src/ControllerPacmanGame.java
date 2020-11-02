@@ -10,7 +10,6 @@ public class ControllerPacmanGame implements InterfaceControleur {
     public void start(){
         game.initialiseGame();  
         ViewPacmanGame pacman = new ViewPacmanGame(game.getMap(),this);
-        game.addObserver(pacman);
     } 
     public void run(){
         game.lauch();

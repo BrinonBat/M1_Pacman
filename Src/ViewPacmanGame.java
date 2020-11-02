@@ -13,6 +13,7 @@ public class ViewPacmanGame implements Observer {
     ViewPacmanGame(Maze maze, InterfaceControleur controller) {
         /**Instanciation du controller  */
         this.controller = (ControllerPacmanGame) controller;
+        this.controller.getGame().addObserver(this);    
 
         ArrayList<PositionAgent> positionPacmans = new ArrayList<PositionAgent>();
         Pacman currentPacman =  this.controller.getGame().getPacmans().get(0);
@@ -28,8 +29,6 @@ public class ViewPacmanGame implements Observer {
 
         window.setSize(width / 2, height / 2);
         window.setLocationRelativeTo(null);
-        view = new PanelPacmanGame(maze);    
-        window.add(view);
         window.addKeyListener(new KeyListener() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -51,15 +50,17 @@ public class ViewPacmanGame implements Observer {
 
             @Override
             public void keyReleased(KeyEvent e) {
-                // TODO Auto-generated method stub
+                return;
             }
 
             @Override
             public void keyTyped(KeyEvent e) {
-                // TODO Auto-generated method stub
+                return;
             }
             
         });
+        view = new PanelPacmanGame(maze);
+        window.add(view);
         window.setVisible(true);
         /********** Fin Creation de l'interface graphique ***********/
     }

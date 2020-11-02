@@ -30,7 +30,7 @@ public class PacmanGame extends Game {
         
         this.setTurn(0);
         this.setRunning(true);
-        this.setTime(2000);
+        this.setTime(800);
         nbVie = pacmans.size();
     }
     public void takeTurn() {
@@ -40,7 +40,7 @@ public class PacmanGame extends Game {
                 while(!move){
                     int i = 0 + (int)(Math.random() * ((3 - 0) + 1));
                     AgentAction action =new AgentAction(i);
-                    if( isLegalMove(g, action)){
+                    if(isLegalMove(g, action)){
                         moveAgent(g, action);
                         move = true;
                     }
@@ -58,12 +58,25 @@ public class PacmanGame extends Game {
     }
     public boolean isLegalMove(Agent agent,AgentAction action){
         PositionAgent position = agent.getPosition();
-        return !map.isWall(position.getX()+action.get_vx(),position.getY()+action.get_vy()) ? true:false; 
+        return !map.isWall(position.getX()+action.get_vx(),position.getY()+action.get_vy()) 
+        || map.isFood(position.getX()+action.get_vx() ,position.getY()+action.get_vy()) 
+        || map.isCapsule(position.getX()+action.get_vx() ,position.getY()+action.get_vy()) ? true:false; 
     }
     public void moveAgent(Agent agent,AgentAction action){
         if(isLegalMove(agent, action)){
             agent.getPosition().setX(agent.getPosition().getX()+action.get_vx());
             agent.getPosition().setY(agent.getPosition().getY()+action.get_vy());
+            if(map.isFood(agent.getPosition().getX(),agent.getPosition().getY()) && agent instanceof Pacman)
+            {
+                System.out.println("J'ai mangé une gomme");
+            }
+            else if(map.isCapsule(agent.getPosition().getX(),agent.getPosition().getY()) && agent instanceof Pacman)
+            {
+                System.out.println("J'ai mangé une capsule");
+            }
+            else if(agent instanceof Ghost){
+
+            }
 
             setTurn(getTurn() + 1);
             this.notifyObservers();
