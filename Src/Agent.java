@@ -1,8 +1,5 @@
-import javax.swing.Action;
-
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.Timer;
+
 
 public abstract class Agent {
     private AgentAction action;
@@ -39,19 +36,7 @@ public abstract class Agent {
         this.strategie = strategie;
     }
 
-    public ActionListener changecomportement()
-    {
-       return new ActionListener() {
-            int i=5;
-			@Override
-			public void actionPerformed(ActionEvent e) {
-                if(i < 1){
-                    System.out.println("Le pacman ne peut plus manger les fantomes");
-                   ((Timer)e.getSource()).stop();
-                }
-                i--;				
-			}
-           
-    }
+    public abstract ActionListener changecomportement();
+      
        
 }
