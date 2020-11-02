@@ -2,6 +2,8 @@
 import java.util.ArrayList;
 import java.util.Random;
 
+//import jdk.internal.agent.resources.agent;
+
 public class PacmanGame extends Game {
     private Maze map;
     // le prof à dit qu'il valait mieux faire deux listes
@@ -28,7 +30,6 @@ public class PacmanGame extends Game {
         for (int i = 0; i < map.getInitNumberOfGhosts(); i++) 
             ghosts.add(new Ghost(map.getGhosts_start().get(i)));
         
-
 
         this.setTurn(0);
         this.setRunning(true);
@@ -67,17 +68,27 @@ public class PacmanGame extends Game {
         if(isLegalMove(agent, action)){
             agent.getPosition().setX(agent.getPosition().getX()+action.get_vx());
             agent.getPosition().setY(agent.getPosition().getY()+action.get_vy());
-            agent.getPosition().setDir(action.get_direction());
-            if(map.isFood(agent.getPosition().getX(),agent.getPosition().getY()) && agent instanceof Pacman)
+            if(agent instanceof Pacman)
             {
-                map.setFood(agent.getPosition().getX(), agent.getPosition().getY(), false);
-            }
-            else if(map.isCapsule(agent.getPosition().getX(),agent.getPosition().getY()) && agent instanceof Pacman)
-            {
-                System.out.println("J'ai mangé une capsule");
-            }
-            else if(agent instanceof Ghost){
+                agent.getPosition().setDir(action.get_direction());
+                if(map.isFood(agent.getPosition().getX(),agent.getPosition().getY()))
+                {
+                    map.setFood(agent.getPosition().getX(), agent.getPosition().getY(), false);
+                }
+                else if(map.isCapsule(agent.getPosition().getX(), agent.getPosition().getY()))
+                {
+                    map.setCapsule(agent.getPosition().getX(), agent.getPosition().getY(), false);
+                    System.out.println("Pacman mange capsule !!");
 
+                }
+            }
+            else{
+                for(Ghost g : ghosts){
+                    if(g.getPosition().equals(pacmans.get(0).getPosition())){
+                        this.nbVie--;
+                        System.out.println("Pacman mort !!");
+                    }
+                }
             }
             setTurn(getTurn() + 1);
             this.notifyObservers();

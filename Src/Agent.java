@@ -30,7 +30,6 @@ public abstract class Agent {
 
 	public void setStrategie(Strategie strategie) {
 		this.strategie = strategie;
-	}
-
-   
+    }
+       
 }
