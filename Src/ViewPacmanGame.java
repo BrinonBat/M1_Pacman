@@ -14,13 +14,34 @@ public class ViewPacmanGame implements Observer {
         /**Instanciation du controller  */
         this.controller = (ControllerPacmanGame) controller;
         this.controller.getGame().addObserver(this);    
+        createUserFrame(maze);
+    }
+
+    public ControllerPacmanGame getController(){
+        return controller;
+    }
+
+    public void update(Observable obs) {
+        // Les deux notations sont equivalentes PacmanGame currentGame = (PacmanGame) obs;
+        PacmanGame currentGame = controller.getGame();
+        ArrayList<PositionAgent> positionGhost = new ArrayList<PositionAgent>();
+        ArrayList<PositionAgent> positionPacmans = new ArrayList<PositionAgent>();
+               
+        positionPacmans.add(currentGame.getPacmans().get(0).getPosition());
+        for (Ghost g : currentGame.getGhosts()) positionGhost.add(g.getPosition());
+        
+        view.repaint();
+    }
+
+    public void createUserFrame(Maze maze)
+    {
 
         ArrayList<PositionAgent> positionPacmans = new ArrayList<PositionAgent>();
         Pacman currentPacman =  this.controller.getGame().getPacmans().get(0);
         positionPacmans.add(currentPacman.getPosition());
         maze.setPacman_start(positionPacmans);
-        
         /********** Creation de l'interface graphique ***********/
+
         window = new JFrame();
         window.setTitle("Pacman");
         Dimension tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
@@ -62,22 +83,9 @@ public class ViewPacmanGame implements Observer {
         view = new PanelPacmanGame(maze);
         window.add(view);
         window.setVisible(true);
+
         /********** Fin Creation de l'interface graphique ***********/
-    }
 
-    public ControllerPacmanGame getController(){
-        return controller;
-    }
-
-    public void update(Observable obs) {
-        PacmanGame currentGame = (PacmanGame) obs;
-        ArrayList<PositionAgent> positionGhost = new ArrayList<PositionAgent>();
-        ArrayList<PositionAgent> positionPacmans = new ArrayList<PositionAgent>();
-               
-        positionPacmans.add(currentGame.getPacmans().get(0).getPosition());
-        for (Ghost g : currentGame.getGhosts()) positionGhost.add(g.getPosition());
-        
-        view.repaint();
     }
 
     

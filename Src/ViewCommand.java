@@ -25,7 +25,42 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
     private ControllerPacmanGame controller;
 
     public ViewCommand(ControllerPacmanGame controller) {
+        this.controller = controller;
+        this.controller.getGame().addObserver(this);
+        createUserFrame();
+    }
 
+    public void actionPerformed(ActionEvent e) {
+        Object source = e.getSource();
+        if (source == restart){
+            System.out.println("Restart pushed");
+        }
+        else if (source == run) {
+            try {
+                controller.start();
+                run.setEnabled(false);
+            } catch (Exception e1) {
+                System.out.println(e1.getMessage());
+            }
+        }
+        else if( source == step) {
+            controller.run();       
+            System.out.println("step pushed");    
+        }
+        else if ( source == pause ){
+            controller.getGame().setRunning(false);
+            System.out.println("pause pushed");
+        }
+      
+    }
+
+    public void update(Observable obs){
+        PacmanGame game = controller.getGame();//(PacmanGame) obs;
+        turn.setText("Turn :"+game.getTurn());
+    }
+
+
+    public void createUserFrame(){
         JFrame jFrame = new JFrame();
         jFrame.setTitle("Command");
         jFrame.setSize(new Dimension(700, 700));
@@ -77,39 +112,5 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
         jFrame.add(buttonBas);
 
         jFrame.setVisible(true);
-
-        this.controller = controller;
-        this.controller.getGame().addObserver(this);
-
     }
-
-    public void actionPerformed(ActionEvent e) {
-        Object source = e.getSource();
-        if (source == restart){
-            System.out.println("Restart pushed");
-        }
-        else if (source == run) {
-            try {
-                controller.start();
-                run.setEnabled(false);
-            } catch (Exception e1) {
-                System.out.println(e1.getMessage());
-            }
-        }
-        else if( source == step) {
-            controller.run();       
-            System.out.println("step pushed");    
-        }
-        else if ( source == pause ){
-            controller.getGame().setRunning(false);
-            System.out.println("pause pushed");
-        }
-      
-    }
-
-    public void update(Observable obs){
-        PacmanGame game = (PacmanGame) obs;
-        turn.setText("Turn :"+game.getTurn());
-    }
-
 }
