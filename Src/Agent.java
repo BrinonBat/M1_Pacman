@@ -1,6 +1,7 @@
 public abstract class Agent {
     private AgentAction action;
     private PositionAgent position;
+    private Strategie strategie;
    
     Agent(PositionAgent pos){
         position = pos;
@@ -22,6 +23,14 @@ public abstract class Agent {
     public void setPosition(PositionAgent position) {
         this.position = position;
     }
+
+	public Strategie getStrategie() {
+		return strategie;
+	}
+
+	public void setStrategie(Strategie strategie) {
+		this.strategie = strategie;
+	}
 
    
 }

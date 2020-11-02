@@ -14,7 +14,7 @@ public class PacmanGame extends Game {
         pacmans = new ArrayList<Pacman>();
         ghosts = new ArrayList<Ghost>();
         try {
-            String nomFichier = "originalClassic_oneFood_fivePacmans.lay";
+            String nomFichier = "originalCLassic_food_fivePAcman.lay";
             map = new Maze("Layouts/"+nomFichier);
         } catch (Exception e) {
             System.out.println("Erreur : " + e.getMessage());
@@ -28,6 +28,8 @@ public class PacmanGame extends Game {
         for (int i = 0; i < map.getInitNumberOfGhosts(); i++) 
             ghosts.add(new Ghost(map.getGhosts_start().get(i)));
         
+
+
         this.setTurn(0);
         this.setRunning(true);
         this.setTime(800);
@@ -38,9 +40,8 @@ public class PacmanGame extends Game {
             for(Ghost g : ghosts){
                 boolean move = false;
                 while(!move){
-                    int i = 0 + (int)(Math.random() * ((3 - 0) + 1));
-                    AgentAction action =new AgentAction(i);
-                    if(isLegalMove(g, action)){
+                    AgentAction action = g.getStrategie().getAction(this.map, g);
+                    if(isLegalMove(g,action )){
                         moveAgent(g, action);
                         move = true;
                     }
@@ -66,9 +67,10 @@ public class PacmanGame extends Game {
         if(isLegalMove(agent, action)){
             agent.getPosition().setX(agent.getPosition().getX()+action.get_vx());
             agent.getPosition().setY(agent.getPosition().getY()+action.get_vy());
+            agent.getPosition().setDir(action.get_direction());
             if(map.isFood(agent.getPosition().getX(),agent.getPosition().getY()) && agent instanceof Pacman)
             {
-                System.out.println("J'ai mangé une gomme");
+                map.setFood(agent.getPosition().getX(), agent.getPosition().getY(), false);
             }
             else if(map.isCapsule(agent.getPosition().getX(),agent.getPosition().getY()) && agent instanceof Pacman)
             {
@@ -77,7 +79,6 @@ public class PacmanGame extends Game {
             else if(agent instanceof Ghost){
 
             }
-
             setTurn(getTurn() + 1);
             this.notifyObservers();
         }
