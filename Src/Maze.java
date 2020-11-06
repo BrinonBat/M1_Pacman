@@ -38,7 +38,7 @@ public class Maze implements Serializable, Cloneable {
 	public Maze(String filename) throws Exception {
 		try {
 			System.out.println("Layout file is " + filename);
-			// Lecture du fichier pour determiner la taille du labyrinthe
+			// Lecture du fichier pour déterminer la taille du labyrinthe
 			InputStream ips = new FileInputStream(filename);
 			InputStreamReader ipsr = new InputStreamReader(ips);
 			BufferedReader br = new BufferedReader(ipsr);
@@ -65,7 +65,6 @@ public class Maze implements Serializable, Cloneable {
 			walls = new boolean[size_x][size_y];
 			food = new boolean[size_x][size_y];
 			capsules = new boolean[size_x][size_y];
-
 			pacman_start = new ArrayList<PositionAgent>();
 			ghosts_start = new ArrayList<PositionAgent>();
 
@@ -175,7 +174,6 @@ public class Maze implements Serializable, Cloneable {
 		capsules[x][y] = b;
 	}
 	
-
 	/**
 	 * Renvoie le nombre de pacmans
 	 * 
@@ -210,6 +208,7 @@ public class Maze implements Serializable, Cloneable {
 		this.ghosts_start = ghosts_start;
 	}
 
+	//affichage du labyrinthe en format texte
 	public String toString() {
 		String s = "Maze\n";
 		s += plateauToString();
@@ -224,6 +223,7 @@ public class Maze implements Serializable, Cloneable {
 		return s;
 	}
 
+	//affichage du plateau en format texte
 	public String plateauToString() {
 		String s = "";
 		for (int i = 0; i < size_x; i++) {
@@ -243,6 +243,7 @@ public class Maze implements Serializable, Cloneable {
 	}
 
 
+	// wtf ???
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return (Maze) super.clone();

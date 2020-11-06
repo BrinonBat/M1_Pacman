@@ -50,6 +50,9 @@ public abstract class Game implements Runnable, Observable {
         }
     }
 
+
+    // Getters et Setters
+
     public void pause() {
         isRunning = false;
     }
@@ -57,8 +60,6 @@ public abstract class Game implements Runnable, Observable {
     public int getTurn() {
         return turn;
     }
-
-    // Getter et Setter
 
     public void addObserver(Observer obs){
         observers.add(obs);

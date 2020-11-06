@@ -1,5 +1,7 @@
 public class Ghost extends Agent {
 
+    
+    //constructeur
     public Ghost(PositionAgent pos) {
         super(pos);
         setStrategie(new StrategieRand());
@@ -13,6 +15,7 @@ public class Ghost extends Agent {
         else 
              System.out.println("Je n'ai plus peur du pacman") ;
     }
+
 
     
 }
