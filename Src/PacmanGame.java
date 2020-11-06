@@ -2,6 +2,7 @@
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
+import java.awt.event.ActionListener;
 import javax.swing.Timer;
 
 //import jdk.internal.agent.resources.agent;
@@ -82,9 +83,19 @@ public class PacmanGame extends Game {
                     map.setFood(agent.getPosition().getX(), agent.getPosition().getY(), false);
                 } else if (map.isCapsule(agent.getPosition().getX(), agent.getPosition().getY())) {
                     map.setCapsule(agent.getPosition().getX(), agent.getPosition().getY(), false);
-                    Timer timer = new Timer(1000, agent.changecomportement());
+                    Timer timer = new Timer(1000,new ActionListener(){
+                        int i = 5;
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            if(i < 1){
+                                changementAgentComportement(false);
+                               ((Timer)e.getSource()).stop();
+                            }
+                            i--;
+                        }
+                    });
+                    changementAgentComportement(true);
                     timer.start();
-                    System.out.println("Le pacman peut manger les fantomes");
                 }
                 for(Ghost g : ghosts){
                     if(g.getPosition().equals(agent.getPosition())){
@@ -92,7 +103,6 @@ public class PacmanGame extends Game {
                         System.out.println("Pacman mort !!");
                     }
                  }
-                
             }
             else{
                 for(Ghost g : ghosts){
@@ -104,6 +114,15 @@ public class PacmanGame extends Game {
             }
             setTurn(getTurn() + 1);
             this.notifyObservers();
+        }
+    }
+    public void changementAgentComportement(boolean b)
+    {
+        for(Ghost g : ghosts){
+            g.changecomportement(b);
+        }
+        for(Pacman p : pacmans){
+            p.changecomportement(b);
         }
     }
     // Getter and Setter

@@ -1,5 +1,3 @@
-import java.awt.event.ActionListener;
-
 
 public abstract class Agent {
     private AgentAction action;
@@ -36,7 +34,7 @@ public abstract class Agent {
         this.strategie = strategie;
     }
 
-    public abstract ActionListener changecomportement();
+    public abstract void changecomportement(boolean CapsuleBehaviour);
       
        
 }

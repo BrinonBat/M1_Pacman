@@ -9,18 +9,12 @@ public class Pacman extends Agent {
     }
 
     @Override
-    public ActionListener changecomportement() {
-        return new ActionListener(){
-            int i = 5;
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(i < 1){
-                    System.out.println("Le pacman ne peut plus manger les fantomes");
-                   ((Timer)e.getSource()).stop();
-                }
-                i--;
-            }
-        };
+    public void changecomportement(boolean CapsuleBehaviour) {
+        if(CapsuleBehaviour)
+        System.out.println("Je vais manger des fantomes") ;
+        else 
+         System.out.println("Je peur des fantomes ") ;
     }
+    
     
 }
