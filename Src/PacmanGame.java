@@ -88,13 +88,13 @@ public class PacmanGame extends Game {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                             if(i < 1){
-                                changementAgentComportement(false);
+                                changementAgentsComportement(false);
                                ((Timer)e.getSource()).stop();
                             }
                             i--;
                         }
                     });
-                    changementAgentComportement(true);
+                    changementAgentsComportement(true);
                     timer.start();
                 }
                 for(Ghost g : ghosts){
@@ -116,7 +116,7 @@ public class PacmanGame extends Game {
             this.notifyObservers();
         }
     }
-    public void changementAgentComportement(boolean b)
+    public void changementAgentsComportement(boolean b)
     {
         for(Ghost g : ghosts){
             g.changecomportement(b);
