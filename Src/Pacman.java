@@ -13,7 +13,7 @@ public class Pacman extends Agent {
         if(CapsuleBehaviour)
         System.out.println("Je vais manger des fantomes") ;
         else 
-         System.out.println("Je peur des fantomes ") ;
+        System.out.println("Je peur des fantomes ") ;
     }
     
     

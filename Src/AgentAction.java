@@ -5,11 +5,12 @@ public class AgentAction {
 	private int _vx;
 	private int _vy;
 
+	// enumeration des directions possibles
 	public final static int NORTH = 0;
 	public final static int SOUTH = 1;
 	public final static int EAST = 2;
 	public final static int WEST = 3;
-	public final static int STOP = 4;
+	/*public final static int STOP = 4;*/
 
 	// Direction
 	private int _direction;
@@ -18,7 +19,7 @@ public class AgentAction {
 
 		_direction = d;
 
-		// Calcul le vecteur de déplacement associé
+		// Calcule le vecteur de déplacement associé
 
 		switch (_direction) {
 			case NORTH:
@@ -37,10 +38,10 @@ public class AgentAction {
 				_vx = -1;
 				_vy = 0;
 				break;
-			case STOP:
+			/*case STOP:
 				_vx = 0;
 				_vy = 0;
-				break;
+				break;*/
 			default:
 				_vx = 0;
 				_vy = 0;
@@ -48,6 +49,7 @@ public class AgentAction {
 		}
 	}
 
+	// getter & setter du vecteur de déplacement du l'axe X
 	public int get_vx() {
 		return _vx;
 	}
@@ -56,6 +58,7 @@ public class AgentAction {
 		this._vx = _vx;
 	}
 
+	// getter & setter du vecteur de déplacement du l'axe Y
 	public int get_vy() {
 		return _vy;
 	}
@@ -64,6 +67,7 @@ public class AgentAction {
 		this._vy = _vy;
 	}
 
+	//getter & setter de la direction
 	public int get_direction() {
 		return _direction;
 	}

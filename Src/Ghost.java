@@ -1,5 +1,7 @@
 public class Ghost extends Agent {
 
+    
+    //constructeur
     public Ghost(PositionAgent pos) {
         super(pos);
         setStrategie(new StrategieRand());
@@ -16,6 +18,7 @@ public class Ghost extends Agent {
              setStrategie(new StrategieGhost());
         }
     }
+
 
     
 }

@@ -11,9 +11,6 @@ import javax.swing.JPanel;
 
 public class PanelPacmanGame extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private Color wallColor = Color.BLUE;
@@ -61,6 +58,7 @@ public class PanelPacmanGame extends JPanel {
 		double stepy = dy / (double) sy;
 		double posx = 0;
 
+		// affiche le terrain "case par case"
 		for (int x = 0; x < sx; x++) {
 			double posy = 0;
 			for (int y = 0; y < sy; y++) {
@@ -185,6 +183,8 @@ public class PanelPacmanGame extends JPanel {
 		}
 
 	}
+
+	//getters & setters
 	public Maze getMaze() {
 		return m;
 	}

@@ -40,6 +40,7 @@ public class PacmanGame extends Game {
         nbVie = pacmans.size();
     }
 
+
     public void takeTurn() {
         System.out.println("Tours " + getTurn() + " en cours ...");
         for (Ghost g : ghosts) {
@@ -66,6 +67,7 @@ public class PacmanGame extends Game {
         return map;
     }
 
+    // verifie si le mouvement est possible pour l'agent pris en paramètre
     public boolean isLegalMove(Agent agent, AgentAction action) {
         PositionAgent position = agent.getPosition();
         return !map.isWall(position.getX() + action.get_vx(), position.getY() + action.get_vy())
@@ -73,17 +75,26 @@ public class PacmanGame extends Game {
                 || map.isCapsule(position.getX() + action.get_vx(), position.getY() + action.get_vy()) ? true : false;
     }
 
+    // déplace l'agent pris en paramètre
     public void moveAgent(Agent agent, AgentAction action) {
-        if (isLegalMove(agent, action)) {
+        if (isLegalMove(agent, action)) { // vérifie que le mouvement est légal
             agent.getPosition().setX(agent.getPosition().getX() + action.get_vx());
             agent.getPosition().setY(agent.getPosition().getY() + action.get_vy());
-            if (agent instanceof Pacman) {
+
+            // s'il s'agit d'un pacman
+            if (agent instanceof Pacman) { 
                 agent.getPosition().setDir(action.get_direction());
+
+                //s'il mange une food
                 if (map.isFood(agent.getPosition().getX(), agent.getPosition().getY())) {
-                    map.setFood(agent.getPosition().getX(), agent.getPosition().getY(), false);
+                    map.setFood(agent.getPosition().getX(), agent.getPosition().getY(), false); // retire la food du terrain
+                
+                //s'il mange une capsule
                 } else if (map.isCapsule(agent.getPosition().getX(), agent.getPosition().getY())) {
-                    map.setCapsule(agent.getPosition().getX(), agent.getPosition().getY(), false);
-                    Timer timer = new Timer(1000,new ActionListener(){
+                    map.setCapsule(agent.getPosition().getX(), agent.getPosition().getY(), false); // retire la capsule du terrain
+
+                    // lance le timer d'invulnerabilité
+                    Timer timer = new Timer(1000,new ActionListener(){ 
                         int i = 5;
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -97,6 +108,8 @@ public class PacmanGame extends Game {
                     changementAgentsComportement(true);
                     timer.start();
                 }
+
+                // cas où le Pacman est sur un fantôme
                 for(Ghost g : ghosts){
                     if(g.getPosition().equals(agent.getPosition())){
                         nbVie--;
@@ -104,6 +117,8 @@ public class PacmanGame extends Game {
                     }
                  }
             }
+
+            // s'il s'agit d'un fantôme
             else{
                 for(Ghost g : ghosts){
                     if(g.getPosition().equals(pacmans.get(0).getPosition())){
@@ -112,10 +127,11 @@ public class PacmanGame extends Game {
                     }
                 }
             }
-            setTurn(getTurn() + 1);
-            this.notifyObservers();
+            setTurn(getTurn() + 1); // incrémente le nombre de tour
+            this.notifyObservers(); // mets à jour l'affichage
         }
     }
+    
     public void changementAgentsComportement(boolean b)
     {
         for(Ghost g : ghosts){
@@ -125,7 +141,8 @@ public class PacmanGame extends Game {
             p.changecomportement(b);
         }
     }
-    // Getter and Setter
+
+    // Getters and Setters
     public Maze getMap() {
         return map;
     }

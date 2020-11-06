@@ -10,12 +10,14 @@ public class PositionAgent implements Serializable {
 	private int y;
 	private int dir;
 
+	//constructeur 
 	public PositionAgent(int x, int y, int dir) {
 		this.x = x;
 		this.y = y;
 		this.dir = dir;
 	}
 
+	//getters & setters
 	public int getX() {
 		return x;
 	}
