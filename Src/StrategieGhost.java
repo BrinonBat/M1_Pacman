@@ -8,23 +8,41 @@ public class StrategieGhost implements Strategie {
       ArrayList<PositionAgent> pos_pacmans = panelPacman.getPacmans_pos();
       PositionAgent currentPacman = pos_pacmans.get(0);
 
-      int i = 1 + (int)(Math.random() * ((2 - 1) + 1));
+     // int posHorizontal = currentPacman.getX() - agent.getPosition().getX() ;
+      //int posVertical = currentPacman.getY() - agent.getPosition().getY();
 
-      switch(i){
-        case 1:{
-          if( currentPacman.getX() < agent.getPosition().getX())
-            return new AgentAction(AgentAction.WEST);
-          else
-           return new AgentAction(AgentAction.EAST);
-        }
+      int i = 1 + (int)(Math.random() * ((2 - 1) + 1));
+      AgentAction move = new AgentAction(5);
+
+      switch(i)
+      {
+        case 1 :{
+          if(currentPacman.getX() < agent.getPosition().getX())
+            move.set_direction(AgentAction.WEST);
+          else 
+            move.set_direction(AgentAction.EAST);
+          }
         case 2:{
-          if( currentPacman.getY() < agent.getPosition().getY())
-          return new AgentAction(AgentAction.SOUTH);
-        else
-          return new AgentAction(AgentAction.NORTH);
+          if(currentPacman.getY() < agent.getPosition().getY())
+           move.set_direction(AgentAction.SOUTH);
+          else
+            move.set_direction(AgentAction.NORTH);
         }
       }
-      return null;
+      return move;
+    }
+
+
+    protected int shortestway(Agent p,Agent pacmanPos,Maze labyrinthe)
+    {
+        if(p.getPosition().equals(pacmanPos.getPosition()))
+          return shortestway(p, pacmanPos, labyrinthe);
+        else{
+
+
+          return shortestway(p, pacmanPos, labyrinthe);
+        }
+        
     }
 
   

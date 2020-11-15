@@ -28,7 +28,18 @@ public class ViewPacmanGame implements Observer {
         ArrayList<PositionAgent> positionPacmans = new ArrayList<PositionAgent>();
                
         positionPacmans.add(currentGame.getPacmans().get(0).getPosition());
-        for (Ghost g : currentGame.getGhosts()) positionGhost.add(g.getPosition());
+        for (Ghost g : currentGame.getGhosts()) {
+            positionGhost.add(g.getPosition());
+            if(g.isScared())
+            {
+                view.setGhostsScarred(true);
+            }
+            else
+            {
+                view.setGhostsScarred(false);
+
+            }
+        }
         
         view.setGhosts_pos(positionGhost);
         view.setPacmans_pos(positionPacmans);

@@ -136,9 +136,11 @@ public class PacmanGame extends Game {
     {
         for(Ghost g : ghosts){
             g.changecomportement(b);
+            this.notifyObservers();
         }
         for(Pacman p : pacmans){
             p.changecomportement(b);
+            this.notifyObservers();
         }
     }
 
