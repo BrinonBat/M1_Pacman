@@ -3,9 +3,7 @@ import java.util.ArrayList;
 public class StrategieGhost implements Strategie {
 
     @Override
-    public AgentAction getAction(Maze labyrinthe, Agent agent) {
-      PanelPacmanGame panelPacman = new PanelPacmanGame(labyrinthe);
-      ArrayList<PositionAgent> pos_pacmans = panelPacman.getPacmans_pos();
+    public AgentAction getAction(PacmanGame game, Agent agent) {
       PositionAgent currentPacman = pos_pacmans.get(0);
 
      // int posHorizontal = currentPacman.getX() - agent.getPosition().getX() ;
@@ -34,11 +32,7 @@ public class StrategieGhost implements Strategie {
            }
          }
        }
-
-      
-      
        return 1;
-        
     }
 
   

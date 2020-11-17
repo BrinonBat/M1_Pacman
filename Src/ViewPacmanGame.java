@@ -9,11 +9,17 @@ public class ViewPacmanGame implements Observer {
     private JFrame window;
     private ControllerPacmanGame controller;
     private PanelPacmanGame view;
+    private PositionAgent restartPacman;
+    private ArrayList<Ghost>restartGhostpos;
+    private int nvie;
 
     ViewPacmanGame(Maze maze, InterfaceControleur controller) {
         /**Instanciation du controller  */
         this.controller = (ControllerPacmanGame) controller;
-        this.controller.getGame().addObserver(this);    
+        this.controller.getGame().addObserver(this);
+        this.restartPacman = this.controller.getGame().getPacmans().get(0).getPosition();
+        this.restartGhostpos = this.controller.getGame().getGhosts();
+        nvie = this.controller.getGame().getVie();
         createUserFrame(maze);
     }
 
@@ -26,24 +32,31 @@ public class ViewPacmanGame implements Observer {
         PacmanGame currentGame = controller.getGame();
         ArrayList<PositionAgent> positionGhost = new ArrayList<PositionAgent>();
         ArrayList<PositionAgent> positionPacmans = new ArrayList<PositionAgent>();
-               
-        positionPacmans.add(currentGame.getPacmans().get(0).getPosition());
-        for (Ghost g : currentGame.getGhosts()) {
-            positionGhost.add(g.getPosition());
-            if(g.isScared())
-            {
-                view.setGhostsScarred(true);
+       
+        if( currentGame.getVie() < nvie)
+        {
+            positionPacmans.remove(currentGame.getPacmans().get(0).getPosition());
+            positionPacmans.add(restartPacman);
+            controller.getGame().getMap().setPacman_start(positionPacmans);
+            for (Ghost g : restartGhostpos ) {
+                positionGhost.add(g.getPosition());
             }
-            else
-            {
-                view.setGhostsScarred(false);
-
+            nvie =  currentGame.getVie();   
+            System.out.println("Pacman mort !!"); 
+        }
+        else{
+            positionPacmans.add(currentGame.getPacmans().get(0).getPosition());
+        
+            for (Ghost g : currentGame.getGhosts()) {
+                positionGhost.add(g.getPosition());
+                if(g.isScared())
+                    view.setGhostsScarred(true);
+                else
+                    view.setGhostsScarred(false);
             }
         }
-        
         view.setGhosts_pos(positionGhost);
         view.setPacmans_pos(positionPacmans);
-
         view.repaint();
     }
 
