@@ -3,9 +3,8 @@ import java.util.ArrayList;
 public class StrategieGhostAffraid implements Strategie {
 
     @Override
-    public AgentAction getAction(Maze labyrinthe, Agent agent) {
-        PanelPacmanGame panelPacman = new PanelPacmanGame(labyrinthe);
-        ArrayList<PositionAgent> pos_pacmans = panelPacman.getPacmans_pos();
+    public AgentAction getAction(PacmanGame game, Agent agent) {
+        /*ArrayList<PositionAgent> pos_pacmans = game.getPacmans();
         PositionAgent currentPacman = pos_pacmans.get(0);
   
         int i = 1 + (int)(Math.random() * ((2 - 1) + 1));
@@ -24,7 +23,7 @@ public class StrategieGhostAffraid implements Strategie {
                 return new AgentAction(AgentAction.NORTH);
           }
         }
-        return null;
+        return null;*/
     }
     
 }

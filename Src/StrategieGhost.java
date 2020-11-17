@@ -3,9 +3,7 @@ import java.util.ArrayList;
 public class StrategieGhost implements Strategie {
 
     @Override
-    public AgentAction getAction(Maze labyrinthe, Agent agent) {
-      PanelPacmanGame panelPacman = new PanelPacmanGame(labyrinthe);
-      ArrayList<PositionAgent> pos_pacmans = panelPacman.getPacmans_pos();
+    public AgentAction getAction(PacmanGame game, Agent agent) {
       PositionAgent currentPacman = pos_pacmans.get(0);
 
      // int posHorizontal = currentPacman.getX() - agent.getPosition().getX() ;
@@ -33,6 +31,7 @@ public class StrategieGhost implements Strategie {
              possibleMove[x][y] = -99999;
            }
          }
+<<<<<<< HEAD
        }*/
 
        /* rappel :
@@ -54,9 +53,10 @@ public class StrategieGhost implements Strategie {
        //parcours les 4 coups possibles
               for(int actuel=1; actuel<4; i++){
          if(cherche_chemin(actuel,ghost.getPosition(),pacmanPos.getPosition(),labyrinthe,0)<nMov)
+=======
+>>>>>>> 7ec24baf0cb7b9b1f2cf4eb7a84845fe10a41765
        }
        return 1;
-        
     }
     private int cherche_chemin(int dir,PositionAgent ghostPos, PositionAgent pacmanPos,Maze labyrinthe, int taille){
       switch(dir){

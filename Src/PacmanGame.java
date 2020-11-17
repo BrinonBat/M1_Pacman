@@ -56,11 +56,13 @@ public class PacmanGame extends Game {
     }
 
     public boolean gameContinue() {
-        return nbVie >= 1 && isRunning() ? true : false;
+        return nbVie >= 1 && isRunning() && ghosts.size() >=1 ? true : false;
     }
 
     public void gameOver() {
-        System.out.println("Le jeu est fini !!! ");
+        if(!gameContinue()) {
+            System.out.println("Game fini !!");
+        }
     }
 
     public Maze getMaze() {
@@ -108,39 +110,44 @@ public class PacmanGame extends Game {
                     changementAgentsComportement(true);
                     timer.start();
                 }
-
+            
                 // cas où le Pacman est sur un fantôme
-                for(Ghost g : ghosts){
-                    if(g.getPosition().equals(agent.getPosition())){
-                        nbVie--;
-                        System.out.println("Pacman mort !!");
-                    }
-                 }
+                ghostDead();
+                }
             }
-
             // s'il s'agit d'un fantôme
             else{
-                for(Ghost g : ghosts){
-                    if(g.getPosition().equals(pacmans.get(0).getPosition())){
-                        nbVie--;
-                        System.out.println("Pacman mort !!");
-                    }
-                }
+                ghostDead();   
             }
             setTurn(getTurn() + 1); // incrémente le nombre de tour
             this.notifyObservers(); // mets à jour l'affichage
+    }
+
+    public boolean ghostDead()
+    {
+        ArrayList<Ghost> delGhost = new ArrayList<>();
+        for(Ghost g : ghosts){
+            if(g.getPosition().equals(pacmans.get(0).getPosition())){
+                if(g.isScared()){
+                    delGhost.add(g);
+                }else
+                {
+                    nbVie--;
+                    return false;
+                }
+            }
         }
+        ghosts.removeAll(delGhost);
+        return true;
     }
     
     public void changementAgentsComportement(boolean b)
     {
         for(Ghost g : ghosts){
             g.changecomportement(b);
-            this.notifyObservers();
         }
         for(Pacman p : pacmans){
             p.changecomportement(b);
-            this.notifyObservers();
         }
     }
 

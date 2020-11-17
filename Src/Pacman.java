@@ -10,10 +10,10 @@ public class Pacman extends Agent {
 
     @Override
     public void changecomportement(boolean CapsuleBehaviour) {
-        if(CapsuleBehaviour)
-        System.out.println("Je vais manger des fantomes") ;
-        else 
-        System.out.println("Je peur des fantomes ") ;
+       // if(CapsuleBehaviour)
+        //System.out.println("Je vais manger des fantomes") ;
+       // else 
+        //System.out.println("Je peur des fantomes ") ;
     }
     
     
