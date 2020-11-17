@@ -4,16 +4,12 @@ public class StrategieGhost implements Strategie {
 
     @Override
     public AgentAction getAction(PacmanGame game, Agent agent) {
-      PositionAgent currentPacman = pos_pacmans.get(0);
+      ArrayList<Pacman> pacmans = game.getPacmans();
+      ArrayList<Ghost> ghosts = game.getGhosts();
+      Pacman currentPacman = pacmans.get(0);
+      AgentAction action = new AgentAction(4);
 
-     // int posHorizontal = currentPacman.getX() - agent.getPosition().getX() ;
-      //int posVertical = currentPacman.getY() - agent.getPosition().getY();
-
-      int i = 1 + (int)(Math.random() * ((2 - 1) + 1));
-      AgentAction move = new AgentAction(5);
-
-    
-      return move;
+      return action; 
     }
 
 
