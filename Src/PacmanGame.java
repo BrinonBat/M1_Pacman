@@ -46,7 +46,7 @@ public class PacmanGame extends Game {
         for (Ghost g : ghosts) {
             boolean move = false;
             while (!move) {
-                AgentAction action = g.getStrategie().getAction(this.map, g);
+                AgentAction action = g.getStrategie().getAction(this, g);
                 if (isLegalMove(g, action)) {
                     moveAgent(g, action);
                     move = true;

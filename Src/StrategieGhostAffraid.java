@@ -22,8 +22,8 @@ public class StrategieGhostAffraid implements Strategie {
             else
                 return new AgentAction(AgentAction.NORTH);
           }
-        }
-        return null;*/
+        }*/
+        return null;
     }
     
 }
