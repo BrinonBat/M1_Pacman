@@ -14,34 +14,30 @@ public class StrategieGhost implements Strategie {
       int i = 1 + (int)(Math.random() * ((2 - 1) + 1));
       AgentAction move = new AgentAction(5);
 
-      switch(i)
-      {
-        case 1 :{
-          if(currentPacman.getX() < agent.getPosition().getX())
-            move.set_direction(AgentAction.WEST);
-          else 
-            move.set_direction(AgentAction.EAST);
-          }
-        case 2:{
-          if(currentPacman.getY() < agent.getPosition().getY())
-           move.set_direction(AgentAction.SOUTH);
-          else
-            move.set_direction(AgentAction.NORTH);
-        }
-      }
+    
       return move;
     }
 
 
     protected int shortestway(Agent p,Agent pacmanPos,Maze labyrinthe)
     {
-        if(p.getPosition().equals(pacmanPos.getPosition()))
-          return shortestway(p, pacmanPos, labyrinthe);
-        else{
+      int x = labyrinthe.getSizeX();
+      int y = labyrinthe.getSizeY();
+      double[][] possibleMove = new double[x][y];
+      for(int i=0; i < labyrinthe.getSizeY() ; i++)
+       {
+         for(int j=0;j < labyrinthe.getSizeX() ; j++)
+         {
+           if(!labyrinthe.isWall(i, j))
+           {
+             possibleMove[x][y] = -99999;
+           }
+         }
+       }
 
-
-          return shortestway(p, pacmanPos, labyrinthe);
-        }
+      
+      
+       return 1;
         
     }
 

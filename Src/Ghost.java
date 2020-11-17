@@ -11,11 +11,11 @@ public class Ghost extends Agent {
     public void changecomportement(boolean CapsuleBehaviour) {
         scared  = CapsuleBehaviour;
         if(CapsuleBehaviour){
-            System.out.println("J'ai peur du pacman") ;
+            //System.out.println("J'ai peur du pacman") ;
             setStrategie(new StrategieGhostAffraid());
         }
         else{ 
-             System.out.println("Je n'ai plus peur du pacman") ;
+             //System.out.println("Je n'ai plus peur du pacman") ;
              setStrategie(new StrategieGhost());
         }
     }
