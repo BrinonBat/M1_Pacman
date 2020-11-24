@@ -8,7 +8,7 @@ public class PositionAgent implements Serializable {
 
 	private int x;
 	private int y;
-	private int dir;
+	//private int dir;
 
 	//constructeurs
 	public PositionAgent(int x, int y){
@@ -19,7 +19,7 @@ public class PositionAgent implements Serializable {
 	public PositionAgent(int x, int y, int dir) {
 		this.x = x;
 		this.y = y;
-		this.dir = dir;
+	//	this.dir = dir;
 	}
 
 	
@@ -42,11 +42,12 @@ public class PositionAgent implements Serializable {
 	}
 
 	public int getDir() {
-		return dir;
+	//	return dir;
+		return 2;
 	}
 
 	public void setDir(int dir) {
-		this.dir = dir;
+	//	this.dir = dir;
 	}
 
 	public String toString() {
