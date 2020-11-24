@@ -32,9 +32,12 @@ public class Maze implements Serializable, Cloneable {
 						forkList.add(new PositionAgent(x,y));
 					}
 				}
-				
 			}
 		}
+	}
+
+	public ArrayList<PositionAgent> getForkList(){
+		return forkList;
 	}
 
 	private static final long serialVersionUID = 1L;
