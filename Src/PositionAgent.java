@@ -8,14 +8,21 @@ public class PositionAgent implements Serializable {
 
 	private int x;
 	private int y;
-	private int dir;
+	//private int dir;
 
-	//constructeur 
+	//constructeurs
+	public PositionAgent(int x, int y){
+		this.x = x;
+		this.y = y;
+	}
+	
 	public PositionAgent(int x, int y, int dir) {
 		this.x = x;
 		this.y = y;
-		this.dir = dir;
+	//	this.dir = dir;
 	}
+
+	
 
 	//getters & setters
 	public int getX() {
@@ -35,11 +42,12 @@ public class PositionAgent implements Serializable {
 	}
 
 	public int getDir() {
-		return dir;
+	//	return dir;
+		return 2;
 	}
 
 	public void setDir(int dir) {
-		this.dir = dir;
+	//	this.dir = dir;
 	}
 
 	public String toString() {
@@ -47,7 +55,11 @@ public class PositionAgent implements Serializable {
 	}
 
 	public boolean equals(PositionAgent other) {
-		return (x == other.x) && (y == other.y);
+		return (x == other.getX()) && (y == other.getY());
+	}
+
+	public int distanceWith(PositionAgent other){
+		return Math.abs((x-other.getX())+(y-other.getY()));
 	}
 
 }

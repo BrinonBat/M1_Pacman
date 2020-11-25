@@ -8,6 +8,38 @@ import java.util.ArrayList;
 
 public class Maze implements Serializable, Cloneable {
 
+	private ArrayList<PositionAgent> forkList= new ArrayList<PositionAgent>();
+
+	private void GenerateForkList(){
+		byte wallCount;
+		//parcours du terrain
+		for(int x=1; x<size_x;x++){
+			for(int y=1; y<size_y;y++){
+				
+				if(!isWall(x,y)){ // on n'ajoute pas de murs
+
+					//on compte le nombre de murs voisins
+					wallCount=0;
+					if(isWall(x-1,y)) wallCount++;
+					if(isWall(x+1,y)) wallCount++;
+					if(isWall(x,y-1)) wallCount++;
+					if(isWall(x,y+1)) wallCount++;
+
+					// cas d'un croisement
+					if(wallCount<2) forkList.add(new PositionAgent(x,y));
+					// cas d'un virage
+					else if(wallCount==2 && !((isWall(x-1,y) && isWall(x+1,y))||(isWall(x,y-1) && isWall(x,y+1)))){
+						forkList.add(new PositionAgent(x,y));
+					}
+				}
+			}
+		}
+	}
+
+	public ArrayList<PositionAgent> getForkList(){
+		return forkList;
+	}
+
 	private static final long serialVersionUID = 1L;
 	/**
 	 * Les differentes directions possibles pour les actions et les orientations des
@@ -117,6 +149,9 @@ public class Maze implements Serializable, Cloneable {
 				if (!walls[size_x - 1][y])
 					throw new Exception("Wrong input format: the maze must be closed");
 			System.out.println("### Maze loaded.");
+
+			// génération de la liste de croisement
+			GenerateForkList();
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -242,8 +277,6 @@ public class Maze implements Serializable, Cloneable {
 		return s;
 	}
 
-
-	// wtf ???
 	@Override
 	public Object clone() throws CloneNotSupportedException {
 		return (Maze) super.clone();

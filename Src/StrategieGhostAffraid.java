@@ -6,5 +6,4 @@ public class StrategieGhostAffraid implements Strategie {
     public AgentAction getAction(PacmanGame game, Agent agent) {
       return new AgentAction(2);
     }
-    
 }
