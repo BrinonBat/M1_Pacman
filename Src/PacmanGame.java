@@ -46,7 +46,7 @@ public class PacmanGame extends Game {
         for (Ghost g : ghosts) {
             boolean move = false;
             while (!move) {
-                AgentAction action = g.getStrategie().getAction(this.map, g);
+                AgentAction action = g.getStrategie().getAction(this, g);
                 if (isLegalMove(g, action)) {
                     moveAgent(g, action);
                     move = true;
@@ -112,33 +112,31 @@ public class PacmanGame extends Game {
                 }
             
                 // cas où le Pacman est sur un fantôme
-                ghostDead();
-                }
+                agentDead();
             }
-            // s'il s'agit d'un fantôme
-            else{
-                ghostDead();   
-            }
+        }
+        // s'il s'agit d'un fantôme
+        else{
+                agentDead();   
+        }
             setTurn(getTurn() + 1); // incrémente le nombre de tour
             this.notifyObservers(); // mets à jour l'affichage
     }
 
-    public boolean ghostDead()
+    public void agentDead()
     {
         ArrayList<Ghost> delGhost = new ArrayList<>();
         for(Ghost g : ghosts){
             if(g.getPosition().equals(pacmans.get(0).getPosition())){
                 if(g.isScared()){
                     delGhost.add(g);
-                }else
-                {
+                }
+                else{
                     nbVie--;
-                    return false;
                 }
             }
         }
         ghosts.removeAll(delGhost);
-        return true;
     }
     
     public void changementAgentsComportement(boolean b)

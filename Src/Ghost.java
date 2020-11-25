@@ -4,7 +4,7 @@ public class Ghost extends Agent {
     //constructeur
     public Ghost(PositionAgent pos) {
         super(pos);
-        setStrategie(new StrategieGhost());
+        setStrategie(new StrategieRand());
     }
 
     @Override
