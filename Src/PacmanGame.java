@@ -9,15 +9,20 @@ import javax.swing.Timer;
 
 public class PacmanGame extends Game {
     private Maze map;
-    // le prof à dit qu'il valait mieux faire deux listes
+
     private ArrayList<Pacman> pacmans;
     private ArrayList<Ghost> ghosts;
     private int nbVie;
+    private ArrayList<PositionAgent> startPacmans ;
+    private ArrayList<PositionAgent> startGhosts ;
 
-    // Initalise les données du PacmanGame
+
     public PacmanGame() {
         pacmans = new ArrayList<Pacman>();
         ghosts = new ArrayList<Ghost>();
+        startPacmans = new ArrayList<PositionAgent>();
+        startGhosts = new ArrayList<PositionAgent>();
+
         try {
             String nomFichier = "originalCLassic_food_fivePAcman.lay";
             map = new Maze("Layouts/" + nomFichier);
@@ -26,13 +31,19 @@ public class PacmanGame extends Game {
         }
     }
 
-    // Place les pacmans et les fantomes sur le terrain
     public void initialiseGame() {
-        for (int i = 0; i < map.getInitNumberOfPacmans(); i++)
+        for (int i = 0; i < map.getInitNumberOfPacmans(); i++){
             pacmans.add(new Pacman(map.getPacman_start().get(i)));
+            startPacmans.add(new PositionAgent(pacmans.get(i).getPosition().getX(),pacmans.get(i).getPosition().getY()));
+        }
+        
 
-        for (int i = 0; i < map.getInitNumberOfGhosts(); i++)
+        for (int i = 0; i < map.getInitNumberOfGhosts(); i++){
             ghosts.add(new Ghost(map.getGhosts_start().get(i)));
+            startGhosts.add(new PositionAgent(ghosts.get(i).getPosition().getX(),ghosts.get(i).getPosition().getY()));
+
+        }
+        
 
         this.setTurn(0);
         this.setRunning(true);
@@ -42,7 +53,6 @@ public class PacmanGame extends Game {
 
 
     public void takeTurn() {
-        System.out.println("Tours " + getTurn() + " en cours ...");
         for (Ghost g : ghosts) {
             boolean move = false;
             while (!move) {
@@ -69,7 +79,6 @@ public class PacmanGame extends Game {
         return map;
     }
 
-    // verifie si le mouvement est possible pour l'agent pris en paramètre
     public boolean isLegalMove(Agent agent, AgentAction action) {
         PositionAgent position = agent.getPosition();
         return !map.isWall(position.getX() + action.get_vx(), position.getY() + action.get_vy())
@@ -77,26 +86,19 @@ public class PacmanGame extends Game {
                 || map.isCapsule(position.getX() + action.get_vx(), position.getY() + action.get_vy()) ? true : false;
     }
 
-    // déplace l'agent pris en paramètre
     public void moveAgent(Agent agent, AgentAction action) {
-        if (isLegalMove(agent, action)) { // vérifie que le mouvement est légal
+        if (isLegalMove(agent, action)) { 
             agent.getPosition().setX(agent.getPosition().getX() + action.get_vx());
             agent.getPosition().setY(agent.getPosition().getY() + action.get_vy());
-
-            // s'il s'agit d'un pacman
+            
             if (agent instanceof Pacman) { 
                 agent.getPosition().setDir(action.get_direction());
 
-                //s'il mange une food
                 if (map.isFood(agent.getPosition().getX(), agent.getPosition().getY())) {
-                    map.setFood(agent.getPosition().getX(), agent.getPosition().getY(), false); // retire la food du terrain
-                
-                //s'il mange une capsule
+                    map.setFood(agent.getPosition().getX(), agent.getPosition().getY(), false); 
                 } else if (map.isCapsule(agent.getPosition().getX(), agent.getPosition().getY())) {
-                    map.setCapsule(agent.getPosition().getX(), agent.getPosition().getY(), false); // retire la capsule du terrain
-
-                    // lance le timer d'invulnerabilité
-                    Timer timer = new Timer(1000,new ActionListener(){ 
+                    map.setCapsule(agent.getPosition().getX(), agent.getPosition().getY(), false); 
+                    Timer timer = new Timer(2000,new ActionListener(){ 
                         int i = 5;
                         @Override
                         public void actionPerformed(ActionEvent e) {
@@ -110,33 +112,46 @@ public class PacmanGame extends Game {
                     changementAgentsComportement(true);
                     timer.start();
                 }
-            
-                // cas où le Pacman est sur un fantôme
                 agentDead();
             }
+            else{
+                agentDead(); 
+            }
         }
-        // s'il s'agit d'un fantôme
-        else{
-                agentDead();   
+            setTurn(getTurn() + 1); 
+            this.notifyObservers(); 
+    }
+
+    protected void restartGame(){
+        
+        for(int i=0; i < startPacmans.size() ; i++)
+        {
+            pacmans.get(i).setPosition(startPacmans.get(i));
+
         }
-            setTurn(getTurn() + 1); // incrémente le nombre de tour
-            this.notifyObservers(); // mets à jour l'affichage
+        for(int i=0; i < startGhosts.size() ; i++)
+        {
+            ghosts.get(i).setPosition(startGhosts.get(i));
+        }
+ 
     }
 
     public void agentDead()
     {
-        ArrayList<Ghost> delGhost = new ArrayList<>();
-        for(Ghost g : ghosts){
-            if(g.getPosition().equals(pacmans.get(0).getPosition())){
-                if(g.isScared()){
-                    delGhost.add(g);
-                }
-                else{
-                    nbVie--;
+            ArrayList<Ghost> delGhost = new ArrayList<>();
+            for(Ghost g : ghosts){
+                if(g.getPosition().equals(pacmans.get(0).getPosition())){
+                    if(g.isScared()){
+                        delGhost.add(g);
+                    }
+                    else {
+                        nbVie--;
+                        restartGame();
+                    }
                 }
             }
-        }
-        ghosts.removeAll(delGhost);
+                ghosts.removeAll(delGhost);
+
     }
     
     public void changementAgentsComportement(boolean b)

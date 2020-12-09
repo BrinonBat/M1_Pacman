@@ -19,8 +19,9 @@ public class PanelPacmanGame extends JPanel {
 	private double sizePacman = 1.1;
 	private Color pacmansColor = Color.yellow;
 
-	private Color ghostsColor = Color.white;
-	private Color ghostScarredColor = Color.pink;
+	private ArrayList<Color> ghostsColor = new ArrayList<>();
+	private Color ghostScarredColor = new Color(0,0,204);
+
 
 	private double sizeFood = 0.3;
 	private Color colorFood = Color.white;
@@ -38,11 +39,19 @@ public class PanelPacmanGame extends JPanel {
 	private ArrayList<PositionAgent> pacmans_pos;
 	private ArrayList<PositionAgent> ghosts_pos;
 
+
 	public PanelPacmanGame(Maze maze) {
 		this.m = maze;
 		pacmans_pos = this.m.getPacman_start();
 		ghosts_pos = this.m.getGhosts_start();
 		ghostsScarred = false;
+
+		ghostsColor.add(new Color(51,153,255));
+		ghostsColor.add(new Color(255,204,51));
+		ghostsColor.add(new Color(255,102,0));
+		ghostsColor.add(new Color(204,0,0));
+
+
 	}
 
 	public void paint(Graphics g) {
@@ -98,12 +107,15 @@ public class PanelPacmanGame extends JPanel {
 			drawPacmans(g, pos.getX(), pos.getY(), pos.getDir(), pacmansColor);
 		}
 
+		int j = 0;
 		for (int i = 0; i < ghosts_pos.size(); i++) {
 			PositionAgent pos = ghosts_pos.get(i);
 			if (ghostsScarred) {
 				drawGhosts(g, pos.getX(), pos.getY(), ghostScarredColor);
 			} else {
-				drawGhosts(g, pos.getX(), pos.getY(), ghostsColor);
+				if(j > ghostsColor.size() - 1) j=0;
+				drawGhosts(g, pos.getX(), pos.getY(), ghostsColor.get(j));
+				j++;
 			}
 		}
 	}

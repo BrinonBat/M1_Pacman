@@ -12,22 +12,22 @@ public class Maze implements Serializable, Cloneable {
 
 	private void GenerateForkList(){
 		byte wallCount;
-		//parcours du terrain
+
 		for(int x=1; x<size_x;x++){
 			for(int y=1; y<size_y;y++){
 				
-				if(!isWall(x,y)){ // on n'ajoute pas de murs
+				if(!isWall(x,y)){ 
 
-					//on compte le nombre de murs voisins
+
 					wallCount=0;
 					if(isWall(x-1,y)) wallCount++;
 					if(isWall(x+1,y)) wallCount++;
 					if(isWall(x,y-1)) wallCount++;
 					if(isWall(x,y+1)) wallCount++;
 
-					// cas d'un croisement
+
 					if(wallCount<2) forkList.add(new PositionAgent(x,y));
-					// cas d'un virage
+
 					else if(wallCount==2 && !((isWall(x-1,y) && isWall(x+1,y))||(isWall(x,y-1) && isWall(x,y+1)))){
 						forkList.add(new PositionAgent(x,y));
 					}

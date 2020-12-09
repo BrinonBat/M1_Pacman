@@ -1,4 +1,7 @@
 import javax.swing.*;
+
+//import sun.awt.AWTAccessor.KeyEventAccessor;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
@@ -9,8 +12,6 @@ public class ViewPacmanGame implements Observer {
     private JFrame window;
     private ControllerPacmanGame controller;
     private PanelPacmanGame view;
-    private ArrayList<PositionAgent> restartPacman;
-    private ArrayList<PositionAgent>restartGhostpos;
     private int nvie;
 
     ViewPacmanGame(Maze maze, InterfaceControleur controller) {
@@ -19,9 +20,10 @@ public class ViewPacmanGame implements Observer {
         this.controller.getGame().addObserver(this);
         createUserFrame(maze);
 
-        this.restartPacman = maze.getPacman_start();
-        this.restartGhostpos = maze.getGhosts_start();
         nvie = this.controller.getGame().getVie();
+
+        System.out.println(this.controller.getGame().toString());
+
     }
 
     public ControllerPacmanGame getController(){
@@ -36,32 +38,35 @@ public class ViewPacmanGame implements Observer {
         
         if( currentGame.getVie() < nvie)
         {   
-            positionPacmans.add(currentGame.getPacmans().get(0).getPosition());
-            for (Ghost g : currentGame.getGhosts()) {
-                positionGhost.add(g.getPosition());
-                if(g.isScared())
-                    view.setGhostsScarred(true);
-                else
-                    view.setGhostsScarred(false);
-            }
-
-            this.nvie =  currentGame.getVie();   
+            this.nvie =  currentGame.getVie();
+            currentGame.setVie(this.nvie);
         }
         else{
             positionPacmans.add(currentGame.getPacmans().get(0).getPosition());
         
-            for (Ghost g : currentGame.getGhosts()) {
-                positionGhost.add(g.getPosition());
-                if(g.isScared())
-                    view.setGhostsScarred(true);
-                else
-                    view.setGhostsScarred(false);
+            if(currentGame.getGhosts().size() > 0)
+            {
+                for (Ghost g : currentGame.getGhosts()) {
+                    positionGhost.add(g.getPosition());
+                    if(g.isScared())
+                        view.setGhostsScarred(true);
+                    else
+                        view.setGhostsScarred(false);
+                }
+                view.setGhosts_pos(positionGhost);
+                view.setPacmans_pos(positionPacmans);
+            }
+            else {
+                createWinFrame();
             }
         }
-        view.setGhosts_pos(positionGhost);
-        view.setPacmans_pos(positionPacmans);
+       
         view.repaint();
     }
+
+    public void createWinFrame(){
+    }
+
 
     public void createUserFrame(Maze maze)
     {
@@ -98,6 +103,7 @@ public class ViewPacmanGame implements Observer {
                         break;
                 }
             }
+            
 
             @Override
             public void keyReleased(KeyEvent e) {

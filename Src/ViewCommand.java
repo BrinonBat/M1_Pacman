@@ -22,6 +22,7 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
     private JButton step;
     private JButton pause;
     private JLabel turn;
+    private JSlider slider;
     private ControllerPacmanGame controller;
 
     public ViewCommand(ControllerPacmanGame controller) {
@@ -97,7 +98,7 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
 
         JLabel titreSlide = new JLabel("Number of turn per secondes ");
         titreSlide.setHorizontalAlignment(JLabel.CENTER);
-        JSlider slider = new JSlider(1, 10, 5);
+        slider = new JSlider(1, 10, 5);
         slider.setMajorTickSpacing(1);
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);

@@ -5,16 +5,18 @@ import javax.swing.Timer;
 public class Pacman extends Agent {
 
     public Pacman(PositionAgent pos) {
-        super(pos);
+        super(pos,true);
     }
 
     @Override
     public void changecomportement(boolean CapsuleBehaviour) {
-       // if(CapsuleBehaviour)
-        //System.out.println("Je vais manger des fantomes") ;
-       // else 
-        //System.out.println("Je peur des fantomes ") ;
-    }
-    
+        setScared(!isScared());
+        if(isScared()){
+            System.out.println("J'ai peur des fantomes");
+        }
+        else{ 
+            System.out.println("J'ai pas peur des fantomes");
+        }
+    }    
     
 }

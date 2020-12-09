@@ -1,30 +1,21 @@
 public class Ghost extends Agent {
-    private boolean scared = false;
     
-    //constructeur
     public Ghost(PositionAgent pos) {
-        super(pos);
-        setStrategie(new StrategieRand());
+        super(pos,false);
+        setStrategie(new StrategieGhost2());
     }
 
     @Override
     public void changecomportement(boolean CapsuleBehaviour) {
-        scared  = CapsuleBehaviour;
-        if(CapsuleBehaviour){
-            setStrategie(new StrategieGhostAffraid());
+        setScared(!isScared());
+        if(isScared()){
+            setStrategie(new StrategieRand());
         }
         else{ 
-             setStrategie(new StrategieGhost());
+             setStrategie(new StrategieRand());
         }
     }
 
-    public boolean isScared() {
-        return scared;
-    }
-
-    public void setScared(boolean scared) {
-        this.scared = scared;
-    }
-
+    
     
 }

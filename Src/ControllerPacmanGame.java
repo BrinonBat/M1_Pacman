@@ -29,7 +29,7 @@ public class ControllerPacmanGame implements InterfaceControleur {
     public PacmanGame getGame(){
         return game;
     }
-    /* public void setGame(PacmanGame game) {
+    public void setGame(PacmanGame game) {
         this.game = game;
-     } */
+    } 
 }
