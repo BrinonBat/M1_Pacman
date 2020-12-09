@@ -52,6 +52,9 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
             controller.getGame().setRunning(false);
             System.out.println("pause pushed");
         }
+        else if ( source == slider){
+            //controller.getGame().setTime(slider.);
+        }
       
     }
 

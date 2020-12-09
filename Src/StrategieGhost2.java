@@ -24,27 +24,20 @@ public class StrategieGhost2 implements Strategie {
         start.position = agent.getPosition();
         start.parent = null;
         ArrayList<node> liste= Astars(game, agent, pacmanpos ,start);
-        if( liste == null){
-            System.out.print("Liste nulle");
-            int i = 0 + (int)(Math.random() * ((3 - 0) + 1));
+    
+        int fin = liste.size()-1;
+        PositionAgent pos = new PositionAgent(liste.get(fin).position.getX(), liste.get(fin).position.getY());
+        int coupajouer= 0;
 
-            return new AgentAction(i);
-        }
-        else
-        {
-            int fin = liste.size()-1;
-            PositionAgent pos = new PositionAgent(liste.get(fin).position.getX(), liste.get(fin).position.getY());
-            int coupajouer= 0;
-
-            for(int i=0; i < 4;i++){
+        for(int i=0; i < 4;i++){
                 AgentAction action = new AgentAction(i);
                 PositionAgent nextpos = new PositionAgent(agent.getPosition().getX() + action.get_vx(), agent.getPosition().getY() + action.get_vy());
                 if( nextpos.equals(pos)) coupajouer =  i;
-            }
+        }
                 
             
-            return new AgentAction(coupajouer);
-        }
+        return new AgentAction(coupajouer);
+        
     }
 
 
@@ -64,7 +57,6 @@ public class StrategieGhost2 implements Strategie {
             ArrayList<node> childs = getSuccessors(game, agent, node);
             for(int i=0 ; i < childs.size() ; i++){
                 node child = childs.get(i);
-                System.out.println("child position :" + "("+child.position.getX() + ","+ child.position.getY()+")");
 
                 boolean isOpen = contains(open,child);
                 boolean isClosed = contains(close,child);

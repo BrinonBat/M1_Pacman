@@ -9,10 +9,10 @@ public class Ghost extends Agent {
     public void changecomportement(boolean CapsuleBehaviour) {
         setScared(!isScared());
         if(isScared()){
-            setStrategie(new StrategieRand());
+            setStrategie(new StrategieGhostAffraid());
         }
         else{ 
-             setStrategie(new StrategieRand());
+             setStrategie(new StrategieGhost2());
         }
     }
 
