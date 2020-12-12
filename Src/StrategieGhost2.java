@@ -16,7 +16,6 @@ public class StrategieGhost2 implements Strategie {
 
     @Override
     public AgentAction getAction(PacmanGame game, Agent agent) {
-        System.out.print("Get action");
         PositionAgent pacmanpos = game.getPacmans().get(0).getPosition();
         node start = new node();
         start.cout = 0;

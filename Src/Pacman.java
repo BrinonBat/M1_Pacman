@@ -6,6 +6,7 @@ public class Pacman extends Agent {
 
     public Pacman(PositionAgent pos) {
         super(pos,true);
+        setStrategie(new StrategiePacmanAstars());
     }
 
     @Override

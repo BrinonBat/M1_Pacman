@@ -63,6 +63,16 @@ public class PacmanGame extends Game {
                 }
             }
         }
+        /*Agent pacman = getPacmans().get(0);
+        boolean move = false;
+        while (!move) {
+            AgentAction action = pacman.getStrategie().getAction(this, pacman);
+            if (isLegalMove(pacman, action)) {
+                moveAgent(pacman, action);
+                move = true;
+            }
+        }*/
+
     }
 
     public boolean gameContinue() {

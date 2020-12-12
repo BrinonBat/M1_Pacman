@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class StrategieGhostAffraid implements Strategie {
+public class StrategiePacmanAstars implements Strategie {
     
         static class node{
             protected double cout;
@@ -11,16 +11,19 @@ public class StrategieGhostAffraid implements Strategie {
     
         @Override
         public AgentAction getAction(PacmanGame game, Agent agent) {
+            System.out.println("Pacman astars commence ");
             PositionAgent pacmanpos = game.getPacmans().get(0).getPosition();
-            PositionAgent longuestposition = longuestPosition(pacmanpos, game);
+            PositionAgent nextPacgom = nextPacgom(pacmanpos, game);
 
+            System.out.println("pos du pacman est :(" +  pacmanpos.getX() + ','+ pacmanpos.getY() +")");
+            System.out.println("La prochaine pac gom est :(" +  nextPacgom.getX() + ','+ nextPacgom.getY() +")");
 
             node start = new node();
             start.cout = 0;
-            start.coutEstime = heuristique(agent.getPosition(),longuestposition );
+            start.coutEstime = heuristique(agent.getPosition(),nextPacgom );
             start.position = agent.getPosition();
             start.parent = null;
-            ArrayList<node> liste= Astars(game, agent, longuestposition ,start);
+            ArrayList<node> liste= Astars(game, agent, nextPacgom ,start);
         
             int fin = liste.size()-1;
             PositionAgent pos = new PositionAgent(liste.get(fin).position.getX(), liste.get(fin).position.getY());
@@ -73,22 +76,22 @@ public class StrategieGhostAffraid implements Strategie {
             return null;
         }
 
-        public PositionAgent longuestPosition(PositionAgent pacmanpos,PacmanGame game){
+        public PositionAgent nextPacgom(PositionAgent pacmanpos,PacmanGame game){
             Maze map = game.getMaze();
-            PositionAgent maxdistance = pacmanpos;
+            PositionAgent mindistance = pacmanpos;
             for(int i = 0 ; i < map.getSizeX() ; i++)
             {
                 for(int j=0; j < map.getSizeY() ; j++)
                 {
-                    if( !map.isWall(i, j)){
+                    if( map.isFood(i, j)){
                         PositionAgent position = new PositionAgent(i,j);
-                        if( heuristique(maxdistance,pacmanpos ) < heuristique(position, pacmanpos)){
-                                maxdistance = position;
+                        if( heuristique(mindistance,pacmanpos ) > heuristique(position, pacmanpos)){
+                                mindistance = position;
                         }
                     } 
                 }
             }
-            return maxdistance;
+            return mindistance;
         }
     
         public boolean contains(ArrayList<node> liste,node n)
@@ -143,5 +146,7 @@ public class StrategieGhostAffraid implements Strategie {
         
  }
     
+
+
 
 
