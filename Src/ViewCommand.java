@@ -41,10 +41,10 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
             System.out.println("Restart pushed");
         }
         else if (source == run) {
-            try {/*
-                controller.start();
-                run.setEnabled(false);*/
+            try {
                 new ViewGameSettings();
+                controller.start();
+                run.setEnabled(false);
             } catch (Exception e1) {
                 System.out.println(e1.getMessage());
             }
