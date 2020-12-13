@@ -7,6 +7,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
@@ -16,7 +18,7 @@ import javax.swing.JLabel;
 
 import java.awt.GridLayout;
 
-public class ViewCommand extends JFrame implements ActionListener,Observer {
+public class ViewCommand extends JFrame implements ActionListener, Observer {
     /**
      *
      */
@@ -37,10 +39,9 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
 
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-        if (source == restart){
+        if (source == restart) {
             System.out.println("Restart pushed");
-        }
-        else if (source == run) {
+        } else if (source == run) {
             try {
                 new ViewGameSettings();
                 controller.start();
@@ -48,28 +49,23 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
             } catch (Exception e1) {
                 System.out.println(e1.getMessage());
             }
-        }
-        else if( source == step) {
-            controller.run();       
-            System.out.println("step pushed");    
-        }
-        else if ( source == pause ){
+        } else if (source == step) {
+            controller.run();
+            System.out.println("step pushed");
+        } else if (source == pause) {
             controller.getGame().setRunning(false);
             System.out.println("pause pushed");
-        }
-        else if ( source == slider){
-            controller.getGame().setTime(slider.getValue());
-        }
-      
+        } 
     }
 
-    public void update(Observable obs){
-        PacmanGame game = controller.getGame();//(PacmanGame) obs;
-        turn.setText("Turn :"+game.getTurn());
+    public void update(Observable obs) {
+        PacmanGame game = controller.getGame();// (PacmanGame) obs;
+        turn.setText("Turn :" + game.getTurn());
     }
 
+    public void createUserFrame() {
 
-    public void createUserFrame(){
+        //création de la fenêtre
         JFrame jFrame = new JFrame();
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // fin du processus à la fermeture de la fenêtre
         jFrame.setTitle("Command");
@@ -93,7 +89,7 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
         run = new JButton("", new ImageIcon("icones/icon_run.png"));
         step = new JButton("", new ImageIcon("icones/icon_step.png"));
         pause = new JButton("", new ImageIcon("icones/icon_pause.png"));
-        turn = new JLabel("Turn  :"+controller.getGame().getTurn(), JLabel.CENTER);
+        turn = new JLabel("Turn  :" + controller.getGame().getTurn(), JLabel.CENTER);
 
         restart.addActionListener(this);
         run.addActionListener(this);
@@ -105,14 +101,24 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
         buttonHaut.add(step);
         buttonHaut.add(pause);
 
+        //création du slider
         JLabel titreSlide = new JLabel("Number of turn per secondes ");
         titreSlide.setHorizontalAlignment(JLabel.CENTER);
         slider = new JSlider(1, 10, 5);
         slider.setMajorTickSpacing(1);
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
-    //    slider.addChangeListener();
 
+        //gestion des valeurs du slider avec un changeListener
+        ChangeListener sliderListener= new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent event) {
+               controller.getGame().setTime(slider.getValue());
+            }   
+        };
+        slider.addChangeListener(sliderListener);
+
+        //ajout des éléments au JFrame
         contbuttonBas.add(titreSlide);
         contbuttonBas.add(slider);
 
