@@ -7,7 +7,7 @@ public class Ghost extends Agent {
 
     @Override
     public void changecomportement(boolean CapsuleBehaviour) {
-        setScared(!isScared());
+        setScared(CapsuleBehaviour);
         if(isScared()){
             setStrategie(new StrategieGhostAffraid());
         }
