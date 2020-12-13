@@ -17,6 +17,10 @@ import javax.swing.JLabel;
 import java.awt.GridLayout;
 
 public class ViewCommand extends JFrame implements ActionListener,Observer {
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
     private JButton restart;
     private JButton run;
     private JButton step;
@@ -37,9 +41,10 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
             System.out.println("Restart pushed");
         }
         else if (source == run) {
-            try {
+            try {/*
                 controller.start();
-                run.setEnabled(false);
+                run.setEnabled(false);*/
+                new ViewGameSettings();
             } catch (Exception e1) {
                 System.out.println(e1.getMessage());
             }
@@ -66,6 +71,7 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
 
     public void createUserFrame(){
         JFrame jFrame = new JFrame();
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // fin du processus à la fermeture de la fenêtre
         jFrame.setTitle("Command");
         jFrame.setSize(new Dimension(700, 700));
         Dimension tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
@@ -105,6 +111,7 @@ public class ViewCommand extends JFrame implements ActionListener,Observer {
         slider.setMajorTickSpacing(1);
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
+    //    slider.addChangeListener();
 
         contbuttonBas.add(titreSlide);
         contbuttonBas.add(slider);
