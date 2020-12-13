@@ -140,16 +140,19 @@ public class PacmanGame extends Game {
     }
 
     protected void restartGame(){
-        
-        for(int i=0; i < startPacmans.size() ; i++)
-        {
-            pacmans.get(i).setPosition(startPacmans.get(i));
+        if(nbVie>0){
+            for(int i=0; i < pacmans.size() ; i++)
+            {
+                pacmans.get(i).setPosition(startPacmans.get(i));
 
+            }
+            for(int i=0; i < startGhosts.size() ; i++)
+            {
+                ghosts.get(i).setPosition(startGhosts.get(i));
+            }
         }
-        for(int i=0; i < startGhosts.size() ; i++)
-        {
-            ghosts.get(i).setPosition(startGhosts.get(i));
-        }
+        else gameOver();
+        
  
     }
 
