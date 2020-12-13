@@ -52,51 +52,45 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
     private String mapSelected;
     private JFrame jFrame;
 
+    ///constructeur
     public ViewCommand(ControllerPacmanGame controller) {
         this.controller = controller;
         this.controller.getGame().addObserver(this);
         createUserFrame();
     }
 
+    ///ActionListener permettant d'executer les algo correspondant aux différentes actions
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
-        System.out.println("source :"+source);
+
+        //restart
         if (source == restart) {
             System.out.println("Restart pushed");
-        } else if (source == run) {
+        } 
+        // lancement (du choix des options)
+        else if (source == run) {
             try {
                 createSettingsFrame();
-                
+                //controller.run(); //run à la fin du viewPacmanGame
             } catch (Exception e1) {
                 System.out.println(e1.getMessage());
             }
-        } else if (source == step) {
-            controller.run();
+        } 
+        // avancée d'un tour
+        else if (source == step) {
             System.out.println("step pushed");
-        } else if (source == pause) {
+        } 
+        //mets le jeu en pause
+        else if (source == pause) {
             controller.getGame().setRunning(false);
             System.out.println("pause pushed");
         } 
-        else if (source == radio1G){
-            strategyGhosts=radio1G.getText();
-            System.out.println("ok");
-        }
-        else if (source == radio2G) {
-            strategyGhosts=radio2G.getText();
-            System.out.println("ok");
-        }
-        else if (source == radio1P){
-            strategyPacmans=radio1P.getText();
-            System.out.println("ok");
-        }
-        else if (source==radio2P){
-            strategyPacmans=radio2P.getText();
-            System.out.println("ok");
-        }
+        //accepte les paramètres
         else if( source == accept) {
             try{
                 this.controller.getGame().setMaze(mapSelected);
-                //this.controller.getGame().set
+                this.controller.getGame().setGhostStrategy(strategyGhosts);
+                this.controller.getGame().setPacmanStrategy(strategyPacmans);
                 jFrame.dispose();
                 controller.start();
                 run.setEnabled(false);
@@ -105,7 +99,27 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
             }
             System.out.println("accept pushed");
         }
-        else System.out.println(" error occured in settings selection");
+        // sinon, on vérifie les boutons radio
+        else {
+            if (radio1G.isSelected()){
+                strategyGhosts=radio1G.getText();
+                System.out.println("1G");
+            } else if (radio2G.isSelected()) {
+                strategyGhosts=radio2G.getText();
+                System.out.println("2G");
+            }
+    
+            if (radio1P.isSelected()){
+                strategyPacmans=radio1P.getText();
+                System.out.println("1P");
+            } else if (radio2P.isSelected()){
+                strategyPacmans=radio2P.getText();
+                System.out.println("2P");
+            }
+            //cas d'erreur
+            else System.out.println(" error occured in settings selection");
+        }
+        
     }
 
     public void stateChanged(ChangeEvent event) {
@@ -123,7 +137,6 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
         JFrame jFrame = new JFrame();
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // fin du processus à la fermeture de la fenêtre
         jFrame.setTitle("Command");
-        //jFrame.setSize(new Dimension(700, 700));
         Dimension tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
         int height = tailleEcran.height;
         int width = tailleEcran.width;
@@ -182,6 +195,7 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
 
     private void createSettingsFrame(){
         /** création de la fenêtre */
+        mapSelected="originalCLassic_food_fivePAcman.lay"; //carte par défaut
         jFrame = new JFrame();
         jFrame.setTitle("Settings");
         jFrame.setSize(new Dimension(700, 700));
@@ -230,8 +244,8 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
         Border borderG = BorderFactory.createTitledBorder("Ghost Strategy");
         panelGhosts.setBorder(borderG);
         ButtonGroup strategyGhosts = new ButtonGroup();
-        JRadioButton radio1G = new JRadioButton("Random");
-        JRadioButton radio2G = new JRadioButton("A*",true);
+        radio1G = new JRadioButton("Random");
+        radio2G = new JRadioButton("A*",true);
         strategyGhosts.add(radio1G);
         panelGhosts.add(radio1G);
         strategyGhosts.add(radio2G);
@@ -242,8 +256,8 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
         Border borderP = BorderFactory.createTitledBorder("Ghost Strategy");
         panelPacman.setBorder(borderP);
         ButtonGroup strategyPacmans = new ButtonGroup();
-        JRadioButton radio1P = new JRadioButton("Random");
-        JRadioButton radio2P = new JRadioButton("A*",true);
+        radio1P = new JRadioButton("Random");
+        radio2P = new JRadioButton("A*",true);
         strategyPacmans.add(radio1P);
         panelPacman.add(radio1P);
         strategyPacmans.add(radio2P);
@@ -270,6 +284,5 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
         System.out.println(" OK ");
 
     }
-
 
 }

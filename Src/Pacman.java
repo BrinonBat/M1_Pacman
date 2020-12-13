@@ -4,9 +4,17 @@ import javax.swing.Timer;
 
 public class Pacman extends Agent {
 
-    public Pacman(PositionAgent pos) {
+    public Pacman(PositionAgent pos,String strat) {
         super(pos,true);
-        setStrategie(new StrategiePacmanAstars());
+        switch(strat){
+            case("A*"): setStrategie(new StrategiePacmanAstars()); break;
+            case("random"): setStrategie(new StrategieRand()); break;
+            default: {
+                System.out.println(" erreur lors de la saisie de la stratégie");
+                setStrategie(new StrategieRand()); 
+                break;
+            }
+        }
     }
 
     @Override

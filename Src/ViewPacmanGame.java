@@ -121,6 +121,7 @@ public class ViewPacmanGame implements Observer {
         view.setMaze(maze);
         window.add(view);
         window.setVisible(true);
+        getController().run();
 
         /********** Fin Creation de l'interface graphique ***********/
 

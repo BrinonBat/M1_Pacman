@@ -12,6 +12,8 @@ public class PacmanGame extends Game {
 
     private ArrayList<Pacman> pacmans;
     private ArrayList<Ghost> ghosts;
+    private String pacmanStrategy;
+    private String ghostStrategy;
     private int nbVie;
     private ArrayList<PositionAgent> startPacmans ;
     private ArrayList<PositionAgent> startGhosts ;
@@ -38,15 +40,21 @@ public class PacmanGame extends Game {
             System.out.println("Erreur : " + e.getMessage());
         }
     }
+    public void setPacmanStrategy(String strat){
+        pacmanStrategy=strat;
+    }
+    public void setGhostStrategy(String strat){
+        ghostStrategy=strat;
+    }
     public void initialiseGame() {
         for (int i = 0; i < map.getInitNumberOfPacmans(); i++){
-            pacmans.add(new Pacman(map.getPacman_start().get(i)));
+            pacmans.add(new Pacman(map.getPacman_start().get(i),pacmanStrategy));
             startPacmans.add(new PositionAgent(pacmans.get(i).getPosition().getX(),pacmans.get(i).getPosition().getY()));
         }
         
 
         for (int i = 0; i < map.getInitNumberOfGhosts(); i++){
-            ghosts.add(new Ghost(map.getGhosts_start().get(i)));
+            ghosts.add(new Ghost(map.getGhosts_start().get(i),ghostStrategy));
             startGhosts.add(new PositionAgent(ghosts.get(i).getPosition().getX(),ghosts.get(i).getPosition().getY()));
 
         }
@@ -140,8 +148,9 @@ public class PacmanGame extends Game {
     }
 
     protected void restartGame(){
+        // si le nombre de vies est supérieur à 0, on re-place TOUS les pacmans et les ghosts à leurs points de départ.
         if(nbVie>0){
-            for(int i=0; i < pacmans.size() ; i++)
+            for(int i=0; i < startPacmans.size() ; i++)
             {
                 pacmans.get(i).setPosition(startPacmans.get(i));
 
@@ -151,6 +160,7 @@ public class PacmanGame extends Game {
                 ghosts.get(i).setPosition(startGhosts.get(i));
             }
         }
+        //sinon, la partie est terminée.
         else gameOver();
         
  

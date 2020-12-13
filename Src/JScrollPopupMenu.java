@@ -10,7 +10,10 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollBar;
-
+/**
+ * Le code n'est pas de nous, voici la source:
+ * @see https://stackoverflow.com/questions/9288350/adding-vertical-scroll-to-a-jpopupmenu/14167008#14167008
+ */
 public class JScrollPopupMenu extends JPopupMenu {
     protected int maximumVisibleRows = 10;
 

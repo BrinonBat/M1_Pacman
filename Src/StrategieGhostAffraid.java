@@ -105,7 +105,7 @@ public class StrategieGhostAffraid implements Strategie {
            ArrayList<node> successors = new ArrayList<node>();
            for(int i = 0 ; i < 4 ; i++){
                 AgentAction action = new AgentAction(i);
-                Ghost ghost = new Ghost(n.position);
+                Ghost ghost = new Ghost(n.position,"A*");
                 if( game.isLegalMove(ghost, action) ) {
                     PositionAgent position = new PositionAgent(ghost.getPosition().getX() + action.get_vx(), ghost.getPosition().getY() + action.get_vy());
                     node child = new node();
