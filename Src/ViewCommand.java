@@ -18,7 +18,7 @@ import javax.swing.JLabel;
 
 import java.awt.GridLayout;
 
-public class ViewCommand extends JFrame implements ActionListener, Observer {
+public class ViewCommand extends JFrame implements ActionListener,ChangeListener, Observer {
     /**
      *
      */
@@ -56,6 +56,10 @@ public class ViewCommand extends JFrame implements ActionListener, Observer {
             controller.getGame().setRunning(false);
             System.out.println("pause pushed");
         } 
+    }
+
+    public void stateChanged(ChangeEvent event) {
+        controller.getGame().setTime(slider.getValue());
     }
 
     public void update(Observable obs) {
@@ -109,14 +113,8 @@ public class ViewCommand extends JFrame implements ActionListener, Observer {
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
 
-        //gestion des valeurs du slider avec un changeListener
-        ChangeListener sliderListener= new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent event) {
-               controller.getGame().setTime(slider.getValue());
-            }   
-        };
-        slider.addChangeListener(sliderListener);
+        //gestion des valeurs du slider avec un changeListener   
+        slider.addChangeListener(this);
 
         //ajout des éléments au JFrame
         contbuttonBas.add(titreSlide);
