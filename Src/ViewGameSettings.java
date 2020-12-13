@@ -9,15 +9,19 @@ import java.awt.GridLayout;
 
 public class ViewGameSettings extends JPanel implements ActionListener {
 
-    private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 2L;
     private JButton mapButton;
     private JPopupMenu maps;
     private JRadioButton radio1;
     private JRadioButton radio2;
     private JButton accept;
+    private boolean isFinished;
+    private String strategySelected;
+    private String mapSelected;
+    private JFrame jFrame;
 
     public ViewGameSettings(){
-        
+        isFinished=false;
         /** création de la fenêtre */
         JFrame jFrame = new JFrame();
         jFrame.setTitle("Settings");
@@ -40,8 +44,9 @@ public class ViewGameSettings extends JPanel implements ActionListener {
         //actionListener pour le menu
         ActionListener menuListener = new ActionListener() {
             public void actionPerformed(ActionEvent event) {
-              System.out.println("Elément de menu [" + event.getActionCommand()
-                  + "] utilisé.");
+                mapSelected=event.getActionCommand().toString();
+                System.out.println("tostring:"+mapSelected);
+                System.out.println("Elément de menu [" + event.getActionCommand()+ "] utilisé.");
             }
         };
 
@@ -90,7 +95,7 @@ public class ViewGameSettings extends JPanel implements ActionListener {
         jFrame.add(accept);
         jFrame.setVisible(true);
 
-
+        System.out.println(" OK ");
 
     }
 
@@ -100,19 +105,24 @@ public class ViewGameSettings extends JPanel implements ActionListener {
         Object source = e.getSource();
         System.out.println(source);
         if (source == radio1){
-            
+            strategySelected=radio1.getText();
+            System.out.println("ok");
         }
         else if (source == radio2) {
-            
-        }
-        else if (source == maps) {
-            System.out.println("maps pushed");
+            strategySelected=radio2.getText();
+            System.out.println("ok");
         }
         else if( source == accept) {
+            isFinished=true;
             System.out.println("accept pushed");
         }
         else System.out.println(" error occured in settings selection");
       
     }
-    
+
+    public boolean getFinishedState(){return isFinished;}
+    public JFrame getWindow(){return jFrame;}
+    public String getStrategy(){return strategySelected;}
+    public String getMap(){return mapSelected;}
+
 }

@@ -24,13 +24,20 @@ public class PacmanGame extends Game {
         startGhosts = new ArrayList<PositionAgent>();
 
         try {
-            String nomFichier = "originalCLassic_food_fivePAcman.lay";
-            map = new Maze("Layouts/" + nomFichier);
+            String fileName = "originalCLassic_food_fivePAcman.lay";
+            map = new Maze("Layouts/" + fileName);
         } catch (Exception e) {
             System.out.println("Erreur : " + e.getMessage());
         }
     }
 
+    public void setMaze(String fileName){
+        try {
+            map = new Maze("Layouts/" + fileName);
+        } catch (Exception e) {
+            System.out.println("Erreur : " + e.getMessage());
+        }
+    }
     public void initialiseGame() {
         for (int i = 0; i < map.getInitNumberOfPacmans(); i++){
             pacmans.add(new Pacman(map.getPacman_start().get(i)));
