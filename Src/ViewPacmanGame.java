@@ -116,7 +116,9 @@ public class ViewPacmanGame implements Observer {
             }
             
         });
-        view = new PanelPacmanGame(maze);
+        System.out.println(" test ");
+        view = PanelPacmanGame.getInstance();
+        view.setMaze(maze);
         window.add(view);
         window.setVisible(true);
 

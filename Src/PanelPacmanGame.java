@@ -3,6 +3,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.Arrays;
 import javax.swing.JPanel;
 
 //import agent.PositionAgent;
@@ -10,6 +11,8 @@ import javax.swing.JPanel;
 //import motor.Maze;
 
 public class PanelPacmanGame extends JPanel {
+
+	private static PanelPacmanGame firstInstance = null; // indicateur d'instance servant au pattern Singleton
 
 	private static final long serialVersionUID = 1L;
 
@@ -19,7 +22,12 @@ public class PanelPacmanGame extends JPanel {
 	private double sizePacman = 1.1;
 	private Color pacmansColor = Color.yellow;
 
-	private ArrayList<Color> ghostsColor = new ArrayList<>();
+	private ArrayList<Color> ghostsColor = new ArrayList<Color>(Arrays.asList(
+		new Color(51,153,255),
+		new Color(255,204,51),
+		new Color(255,102,0),
+		new Color(204,0,0)
+	));
 	private Color ghostScarredColor = new Color(0,0,204);
 
 
@@ -29,7 +37,7 @@ public class PanelPacmanGame extends JPanel {
 	private double sizeCapsule = 0.7;
 	private Color colorCapsule = Color.red;
 
-	private boolean ghostsScarred;
+	private boolean ghostsScarred=false;
 
 	private static int sa = 0;
 	private static int fa = 0;
@@ -39,30 +47,27 @@ public class PanelPacmanGame extends JPanel {
 	private ArrayList<PositionAgent> pacmans_pos;
 	private ArrayList<PositionAgent> ghosts_pos;
 
-
-	public PanelPacmanGame(Maze maze) {
-		this.m = maze;
-		pacmans_pos = this.m.getPacman_start();
-		ghosts_pos = this.m.getGhosts_start();
-		ghostsScarred = false;
-
-		ghostsColor.add(new Color(51,153,255));
-		ghostsColor.add(new Color(255,204,51));
-		ghostsColor.add(new Color(255,102,0));
-		ghostsColor.add(new Color(204,0,0));
-
-
+	//getInstance appliquant le pattern Singleton
+	public static synchronized PanelPacmanGame getInstance(){
+		//on n'instancie l'objet que s'il n'y a pas déjà une instance de celui-ci en cours
+		if(firstInstance==null){
+			firstInstance=new PanelPacmanGame();
+		}
+		return firstInstance;
 	}
+
+	///singleton donc constructeur bloqué
+	private PanelPacmanGame() {}
 
 	public void paint(Graphics g) {
 
-		int dx = getSize().width;
-		int dy = getSize().height;
+		int dx = firstInstance.getSize().width;
+		int dy = firstInstance.getSize().height;
 		g.setColor(Color.black);
 		g.fillRect(0, 0, dx, dy);
 
-		int sx = m.getSizeX();
-		int sy = m.getSizeY();
+		int sx = firstInstance.m.getSizeX();
+		int sy = firstInstance.m.getSizeY();
 		double stepx = dx / (double) sx;
 		double stepy = dy / (double) sy;
 		double posx = 0;
@@ -71,28 +76,28 @@ public class PanelPacmanGame extends JPanel {
 		for (int x = 0; x < sx; x++) {
 			double posy = 0;
 			for (int y = 0; y < sy; y++) {
-				if (m.isWall(x, y)) {
-					g.setColor(wallColor2);
+				if (firstInstance.m.isWall(x, y)) {
+					g.setColor(firstInstance.wallColor2);
 					g.fillRect((int) posx, (int) posy, (int) (stepx + 1), (int) (stepy + 1));
-					g.setColor(wallColor);
+					g.setColor(firstInstance.wallColor);
 					double nsx = stepx * 0.5;
 					double nsy = stepy * 0.5;
 					double npx = (stepx - nsx) / 2.0;
 					double npy = (stepy - nsy) / 2.0;
 					g.fillRect((int) (npx + posx), (int) (npy + posy), (int) (nsx), (int) nsy);
 				}
-				if (m.isFood(x, y)) {
-					g.setColor(colorFood);
-					double nsx = stepx * sizeFood;
-					double nsy = stepy * sizeFood;
+				if (firstInstance.m.isFood(x, y)) {
+					g.setColor(firstInstance.colorFood);
+					double nsx = stepx * firstInstance.sizeFood;
+					double nsy = stepy * firstInstance.sizeFood;
 					double npx = (stepx - nsx) / 2.0;
 					double npy = (stepy - nsy) / 2.0;
 					g.fillOval((int) (npx + posx), (int) (npy + posy), (int) (nsx), (int) nsy);
 				}
-				if (m.isCapsule(x, y)) {
-					g.setColor(colorCapsule);
-					double nsx = stepx * sizeCapsule;
-					double nsy = stepy * sizeCapsule;
+				if (firstInstance.m.isCapsule(x, y)) {
+					g.setColor(firstInstance.colorCapsule);
+					double nsx = stepx * firstInstance.sizeCapsule;
+					double nsy = stepy * firstInstance.sizeCapsule;
 					double npx = (stepx - nsx) / 2.0;
 					double npy = (stepy - nsy) / 2.0;
 					g.fillOval((int) (npx + posx), (int) (npy + posy), (int) (nsx), (int) nsy);
@@ -102,19 +107,19 @@ public class PanelPacmanGame extends JPanel {
 			posx += stepx;
 		}
 
-		for (int i = 0; i < pacmans_pos.size(); i++) {
-			PositionAgent pos = pacmans_pos.get(i);
-			drawPacmans(g, pos.getX(), pos.getY(), pos.getDir(), pacmansColor);
+		for (int i = 0; i < firstInstance.pacmans_pos.size(); i++) {
+			PositionAgent pos = firstInstance.pacmans_pos.get(i);
+			drawPacmans(g, pos.getX(), pos.getY(), pos.getDir(), firstInstance.pacmansColor);
 		}
 
 		int j = 0;
-		for (int i = 0; i < ghosts_pos.size(); i++) {
-			PositionAgent pos = ghosts_pos.get(i);
-			if (ghostsScarred) {
-				drawGhosts(g, pos.getX(), pos.getY(), ghostScarredColor);
+		for (int i = 0; i < firstInstance.ghosts_pos.size(); i++) {
+			PositionAgent pos = firstInstance.ghosts_pos.get(i);
+			if (firstInstance.ghostsScarred) {
+				drawGhosts(g, pos.getX(), pos.getY(), firstInstance.ghostScarredColor);
 			} else {
-				if(j > ghostsColor.size() - 1) j=0;
-				drawGhosts(g, pos.getX(), pos.getY(), ghostsColor.get(j));
+				if(j > firstInstance.ghostsColor.size() - 1) j=0;
+				drawGhosts(g, pos.getX(), pos.getY(), firstInstance.ghostsColor.get(j));
 				j++;
 			}
 		}
@@ -125,11 +130,11 @@ public class PanelPacmanGame extends JPanel {
 		// si pacman est en vie
 		if ((px != -1) || (py != -1)) {
 
-			int dx = getSize().width;
-			int dy = getSize().height;
+			int dx = firstInstance.getSize().width;
+			int dy = firstInstance.getSize().height;
 
-			int sx = m.getSizeX();
-			int sy = m.getSizeY();
+			int sx = firstInstance.m.getSizeX();
+			int sy = firstInstance.m.getSizeY();
 			double stepx = dx / (double) sx;
 			double stepy = dy / (double) sy;
 
@@ -137,29 +142,29 @@ public class PanelPacmanGame extends JPanel {
 			double posy = py * stepy;
 
 			g.setColor(color);
-			double nsx = stepx * sizePacman;
-			double nsy = stepy * sizePacman;
+			double nsx = stepx * firstInstance.sizePacman;
+			double nsy = stepy * firstInstance.sizePacman;
 			double npx = (stepx - nsx) / 2.0;
 			double npy = (stepy - nsy) / 2.0;
 
 			if (pacmanDirection == Maze.NORTH) {
-				sa = 70;
-				fa = -320;
+				PanelPacmanGame.sa = 70;
+				PanelPacmanGame.fa = -320;
 			}
 			if (pacmanDirection == Maze.SOUTH) {
-				sa = 250;
-				fa = -320;
+				PanelPacmanGame.sa = 250;
+				PanelPacmanGame.fa = -320;
 			}
 			if (pacmanDirection == Maze.EAST) {
-				sa = 340;
-				fa = -320;
+				PanelPacmanGame.sa = 340;
+				PanelPacmanGame.fa = -320;
 			}
 			if (pacmanDirection == Maze.WEST) {
-				sa = 160;
-				fa = -320;
+				PanelPacmanGame.sa = 160;
+				PanelPacmanGame.fa = -320;
 			}
 
-			g.fillArc((int) (npx + posx), (int) (npy + posy), (int) (nsx), (int) nsy, sa, fa);
+			g.fillArc((int) (npx + posx), (int) (npy + posy), (int) (nsx), (int) nsy, PanelPacmanGame.sa, PanelPacmanGame.fa);
 		}
 
 	}
@@ -167,11 +172,11 @@ public class PanelPacmanGame extends JPanel {
 	void drawGhosts(Graphics g, int px, int py, Color color) {
 
 		if ((px != -1) || (py != -1)) {
-			int dx = getSize().width;
-			int dy = getSize().height;
+			int dx = firstInstance.getSize().width;
+			int dy = firstInstance.getSize().height;
 
-			int sx = m.getSizeX();
-			int sy = m.getSizeY();
+			int sx = firstInstance.m.getSizeX();
+			int sy = firstInstance.m.getSizeY();
 			double stepx = dx / (double) sx;
 			double stepy = dy / (double) sy;
 
@@ -180,8 +185,8 @@ public class PanelPacmanGame extends JPanel {
 
 			g.setColor(color);
 
-			double nsx = stepx * sizePacman;
-			double nsy = stepy * sizePacman;
+			double nsx = stepx * firstInstance.sizePacman;
+			double nsy = stepy * firstInstance.sizePacman;
 			double npx = (stepx - nsx) / 2.0;
 			double npy = (stepy - nsy) / 2.0;
 
@@ -198,25 +203,33 @@ public class PanelPacmanGame extends JPanel {
 
 	//getters & setters
 	public Maze getMaze() {
-		return m;
+		return firstInstance.m;
 	}
 	public void setMaze(Maze maze) {
-		this.m = maze;
+		System.out.println("1");
+		firstInstance.m = maze;
+		System.out.println("2");
+		firstInstance.pacmans_pos =firstInstance.m.getPacman_start();
+		System.out.println("3");
+		firstInstance.ghosts_pos =firstInstance.m.getGhosts_start();
+		System.out.println("4");
+
+		System.out.println("7");
 	}
 	public void setGhostsScarred(boolean ghostsScarred) {
-		this.ghostsScarred = ghostsScarred;
+		firstInstance.ghostsScarred = ghostsScarred;
 	}
 	public ArrayList<PositionAgent> getPacmans_pos() {
-		return pacmans_pos;
+		return firstInstance.pacmans_pos;
 	}
 	public void setPacmans_pos(ArrayList<PositionAgent> pacmans_pos) {
-		this.pacmans_pos = pacmans_pos;
+		firstInstance.pacmans_pos = pacmans_pos;
 	}
 	public ArrayList<PositionAgent> getGhosts_pos() {
-		return ghosts_pos;
+		return firstInstance.ghosts_pos;
 	}
 	public void setGhosts_pos(ArrayList<PositionAgent> ghosts_pos) {
-		this.ghosts_pos = ghosts_pos;
+		firstInstance.ghosts_pos = ghosts_pos;
 	}
 
 }
