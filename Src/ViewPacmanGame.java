@@ -84,7 +84,7 @@ public class ViewPacmanGame implements Observer {
         int width = tailleEcran.width;
 
         window.setSize(width / 2, height / 2);
-        window.setLocationRelativeTo(null);
+        window.setLocation(width/4,height/7-6);
         window.addKeyListener(new KeyListener() {
             @Override
             public void keyPressed(KeyEvent e) {
