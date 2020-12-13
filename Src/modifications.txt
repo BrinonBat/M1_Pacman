@@ -1,0 +1,4 @@
+j'ai mis le controller.run à l'activation du bouton "run", ça me semblait plus logique/pratique ainsi. 
+    Je relirai l'énoncé pour confirmer l'utilisation du bouton push, je crois que c'est pour éxécuter un seul tour plutôt que lancer la game.
+
+J'ai terminé le choix de stratégie à l'interface, j'ai donc changé les constructeurs de Ghost et de Pacman.
