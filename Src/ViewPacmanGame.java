@@ -94,15 +94,19 @@ public class ViewPacmanGame implements Observer {
             public void keyPressed(KeyEvent e) {
                 switch(e.getKeyCode()){
                     case KeyEvent.VK_UP:
+                        //getController().getGame().getPacmans().get(0).getPosition().setDir(AgentAction.NORTH);
                         getController().getGame().moveAgent(currentPacman, new AgentAction(AgentAction.NORTH));;
                         break;
                     case KeyEvent.VK_RIGHT:
-                         getController().getGame().moveAgent(currentPacman,new AgentAction(AgentAction.EAST));
+                        //getController().getGame().getPacmans().get(0).getPosition().setDir(AgentAction.EAST);
+                        getController().getGame().moveAgent(currentPacman,new AgentAction(AgentAction.EAST));
                         break;
                     case KeyEvent.VK_DOWN:
-                         getController().getGame().moveAgent(currentPacman,new AgentAction(AgentAction.SOUTH));
+                        //getController().getGame().getPacmans().get(0).getPosition().setDir(AgentAction.SOUTH);
+                        getController().getGame().moveAgent(currentPacman,new AgentAction(AgentAction.SOUTH));
                         break;
                     case KeyEvent.VK_LEFT:
+                        //getController().getGame().getPacmans().get(0).getPosition().setDir(AgentAction.WEST);
                         getController().getGame().moveAgent(currentPacman,new AgentAction(AgentAction.WEST));
                         break;
                 }

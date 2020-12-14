@@ -47,6 +47,7 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
     private JRadioButton radio2G;
     private JRadioButton radio1P;
     private JRadioButton radio2P;
+    private JRadioButton radio3P;
     private JButton accept;
     private String strategyGhosts;
     private String strategyPacmans;
@@ -124,6 +125,9 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
             } else if (radio2P.isSelected()){
                 strategyPacmans=radio2P.getText();
                 System.out.println("2P");
+            } else if (radio3P.isSelected()){
+                strategyPacmans=radio3P.getText();
+                System.out.println("3P");
             }
             //cas d'erreur
             else System.out.println(" error occured in settings selection");
@@ -181,7 +185,7 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
         //création du slider
         JLabel titreSlide = new JLabel("Number of turn per secondes ");
         titreSlide.setHorizontalAlignment(JLabel.CENTER);
-        slider = new JSlider(1, 10, 5);
+        slider = new JSlider(1, 10, 1);
         slider.setMajorTickSpacing(1);
         slider.setPaintTicks(true);
         slider.setPaintLabels(true);
@@ -266,12 +270,16 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
         panelPacman.setBorder(borderP);
         ButtonGroup bGroupPacmans = new ButtonGroup();
         radio1P = new JRadioButton("Random");
-        radio2P = new JRadioButton("A*",true);
-        strategyPacmans=radio2P.getText();
+        radio2P = new JRadioButton("A*");
+        radio3P = new JRadioButton("Player",true);
+        strategyPacmans=radio3P.getText();
         bGroupPacmans.add(radio1P);
         panelPacman.add(radio1P);
         bGroupPacmans.add(radio2P);
         panelPacman.add(radio2P);
+        bGroupPacmans.add(radio3P);
+        panelPacman.add(radio3P);
+
 
         //création du bouton de validation
         accept = new JButton(" OK ");

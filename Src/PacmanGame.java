@@ -82,15 +82,11 @@ public class PacmanGame extends Game {
         System.out.println("ghosts: "+getGhosts());
         System.out.println("pacmans: "+getPacmans());
 
-        /*Agent pacman = getPacmans().get(0);
-        boolean move = false;
-        while (!move) {
-            AgentAction action = pacman.getStrategie().getAction(this, pacman);
-            if (isLegalMove(pacman, action)) {
-                moveAgent(pacman, action);
-                move = true;
-            }
-        }*/
+        Agent pacman = getPacmans().get(0);
+        AgentAction action = pacman.getStrategie().getAction(this, pacman);
+        if (isLegalMove(pacman, action)) {
+            moveAgent(pacman, action);
+        }
         setTurn(getTurn()+1);
         this.notifyObservers();
     }
@@ -168,7 +164,6 @@ public class PacmanGame extends Game {
         }
         //sinon, la partie est terminée.
         else gameOver();
-        
  
     }
 

@@ -6,9 +6,11 @@ public class Pacman extends Agent {
 
     public Pacman(PositionAgent pos,String strat) {
         super(pos,true);
+        setStratName(strat);
         switch(strat){
             case("A*"): setStrategie(new StrategiePacmanAstars()); break;
             case("random"): setStrategie(new StrategieRand()); break;
+            case("Player"): setStrategie(new StrategiePacmanPlayer());break;
             default: {
                 System.out.println(" erreur lors de la saisie de la stratégie");
                 setStrategie(new StrategieRand()); 

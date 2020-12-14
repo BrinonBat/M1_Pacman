@@ -3,7 +3,8 @@ public abstract class Agent {
     private AgentAction action; // déplacement de l'agent
     private PositionAgent position; // position actuelle de l'agent
     private Strategie strategie; // stratégie appellée pour calculer l'action à effectuer
-    private boolean scared ;
+    private String stratName;
+    private boolean scared;
     //getters & setters
     Agent(PositionAgent pos,boolean scared) {
         position = pos;
@@ -21,6 +22,13 @@ public abstract class Agent {
 
     public PositionAgent getPosition() {
         return position;
+    }
+
+    public void setStratName(String strat){
+        this.stratName=strat;
+    }
+    public String getStratName(){
+        return stratName;
     }
 
     public void setPosition(PositionAgent position) {
