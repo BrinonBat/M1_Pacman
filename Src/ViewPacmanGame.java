@@ -13,8 +13,12 @@ public class ViewPacmanGame implements Observer {
     private ControllerPacmanGame controller;
     private PanelPacmanGame view;
     private int nvie;
+    private static boolean instancied = false;
+
+    public static boolean isInstancied(){return instancied;}
 
     ViewPacmanGame(Maze maze, InterfaceControleur controller) {
+        instancied=true;
         /**Instanciation du controller  */
         this.controller = (ControllerPacmanGame) controller;
         this.controller.getGame().addObserver(this);
@@ -116,7 +120,6 @@ public class ViewPacmanGame implements Observer {
             }
             
         });
-        System.out.println(" test ");
         view = PanelPacmanGame.getInstance();
         view.setMaze(maze);
         window.add(view);

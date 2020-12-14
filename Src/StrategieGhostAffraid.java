@@ -23,7 +23,7 @@ public class StrategieGhostAffraid implements Strategie {
             ArrayList<node> liste= Astars(game, agent, longuestposition ,start);
         
             int fin = liste.size()-1;
-            PositionAgent pos = new PositionAgent(liste.get(fin).position.getX(), liste.get(fin).position.getY());
+            PositionAgent pos = new PositionAgent(liste.get(fin).position.getX(), liste.get(fin).position.getY()); //!\ génére un "-1 out of bounds for length 0" error
             int coupajouer= 0;
     
             for(int i=0; i < 4;i++){

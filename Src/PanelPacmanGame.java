@@ -206,15 +206,9 @@ public class PanelPacmanGame extends JPanel {
 		return firstInstance.m;
 	}
 	public void setMaze(Maze maze) {
-		System.out.println("1");
 		firstInstance.m = maze;
-		System.out.println("2");
 		firstInstance.pacmans_pos =firstInstance.m.getPacman_start();
-		System.out.println("3");
 		firstInstance.ghosts_pos =firstInstance.m.getGhosts_start();
-		System.out.println("4");
-
-		System.out.println("7");
 	}
 	public void setGhostsScarred(boolean ghostsScarred) {
 		firstInstance.ghostsScarred = ghostsScarred;

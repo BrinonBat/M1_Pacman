@@ -78,6 +78,10 @@ public class PacmanGame extends Game {
                 }
             }
         }
+        //affichage pour débugger les fantômes 
+        System.out.println("ghosts: "+getGhosts());
+        System.out.println("pacmans: "+getPacmans());
+
         /*Agent pacman = getPacmans().get(0);
         boolean move = false;
         while (!move) {
@@ -87,11 +91,13 @@ public class PacmanGame extends Game {
                 move = true;
             }
         }*/
-
+        setTurn(getTurn()+1);
+        this.notifyObservers();
     }
 
     public boolean gameContinue() {
-        return nbVie >= 1 && isRunning() && ghosts.size() >=1 ? true : false;
+       // return nbVie >= 1 && isRunning() && ghosts.size() >=1 ? true : false;
+       return nbVie >= 1 && ghosts.size() >=1 ? true : false;
     }
 
     public void gameOver() {
@@ -143,7 +149,7 @@ public class PacmanGame extends Game {
                 agentDead(); 
             }
         }
-            setTurn(getTurn() + 1); 
+            //setTurn(getTurn() + 1); // réalisé 1 fois pour chaque fantôme, donc un tour augmenterait de 4 le nombre de tours.
             this.notifyObservers(); 
     }
 

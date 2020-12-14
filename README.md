@@ -7,7 +7,8 @@ tâches restantes:
     - [x] fenêtre supplémentaire au lancement de la partie pour choisir l'IA des ghosts et le terrain de jeu
     - [x] retravailler le fonctionnement de la fenêtre settings
     - [x] revoir le placement des fenêtres
-    - [] faire en sorte que le slider ait bien sa valeur prise en compte sur le nombre de tours/secs
+    - [x] faire en sorte que le slider ait bien sa valeur prise en compte sur le nombre de tours/secs
+    - [x] débugger ces histoires de tours (takeTurn ne doit faire avancer que d'un tour, pas 4.)
     - [x] que le processus se termine quand la fenêtre de commande est fermée
     - [] ~~ fabrique sur les Agents ~~
     - [] itérateur sur les agents

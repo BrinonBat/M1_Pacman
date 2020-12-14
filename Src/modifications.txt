@@ -1,4 +1,14 @@
-j'ai mis le controller.run à l'activation du bouton "run", ça me semblait plus logique/pratique ainsi. 
-    Je relirai l'énoncé pour confirmer l'utilisation du bouton push, je crois que c'est pour éxécuter un seul tour plutôt que lancer la game.
+j'ai mis le controller.run à l'activation du bouton "run", ça me semblait plus logique/pratique ainsi. j'ai modifié quelques autres trucs (viewPacmanGame a un semi-singleton d'implémenté)
+    J'ai relu l'énoncé, et n'ai pas trouvé d'indication vis à vis d'un fonctionnement forcé. Je me suis donc permis de modifier le fonctionnement des commandes:
+        -> Start affiche le terrain ET lance la partie. Si on réappuie sur Start ensuite, il ne fait que retirer la pause en cours.
+        -> Push permet uniquement d'avancer d'un tour.
+        -> pause mets toujours en pause.
+    Je n'ai bien entendu rien supprimé dans l'operation, tout ce qui a été " retiré " se trouve dans les commentaires.
 
 J'ai terminé le choix de stratégie à l'interface, j'ai donc changé les constructeurs de Ghost et de Pacman.
+
+Une erreur est générée dans StrategieGhostAffraid à la ligne 26. J'ai mis un commentaire indiquant le message d'erreur retourné.
+    pour retrouver ce bug : lance une partie, mange une pacgom et mets pause. Avance tour par tour avec le bouton push_step jusqu'à la fin de l'effet de la pacgom
+
+retrait de la verification "isRunning" pour le gameOver pour que le step puisse fonctionner correctement. 
+Désormais, le gameOVer à lieu que si le pacman a perdu ses vies ou si les fantômes sont tous morts.

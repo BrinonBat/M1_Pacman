@@ -23,13 +23,13 @@ public abstract class Game implements Runnable, Observable {
     }
 
     public void step() {
-        if (!this.gameContinue()) {
+        if (!gameContinue()) {
             isRunning = false;
             gameOver();
         } 
-        takeTurn();
-        this.turn = this.turn + 1;
-        this.notifyObservers();
+        else if(gameContinue() && isRunning==true){
+            takeTurn();
+        }
     }
 
     public void run() {

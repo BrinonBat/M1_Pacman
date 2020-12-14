@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -69,15 +70,23 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
         } 
         // lancement (du choix des options)
         else if (source == run) {
-            try {
-                createSettingsFrame();
-                //controller.run(); //run à la fin du viewPacmanGame
-            } catch (Exception e1) {
-                System.out.println(e1.getMessage());
+            System.out.println("is it running ? "+controller.getGame().isRunning());
+            if(ViewPacmanGame.isInstancied()){ // si la partie existe déjà, le bouton ne sert qu'à arrêter la pause
+                controller.getGame().setRunning(true);
+            } 
+            else {
+                try {
+                    createSettingsFrame();
+                    //controller.run(); //run à la fin du viewPacmanGame
+                } catch (Exception e1) {
+                    System.out.println(e1.getMessage());
+                }
             }
         } 
         // avancée d'un tour
         else if (source == step) {
+            //controller.run();
+            this.controller.getGame().takeTurn(); // on ne fait pas un step, car ce dernier à besoin de vérifier si la pause est mise ou non pour fonctionner.
             System.out.println("step pushed");
         } 
         //mets le jeu en pause
@@ -93,7 +102,7 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
                 this.controller.getGame().setPacmanStrategy(strategyPacmans);
                 jFrame.dispose();
                 controller.start();
-                run.setEnabled(false);
+               // run.setEnabled(false);
             } catch(Exception e2){
                 System.out.println(e2.getMessage());
             }
@@ -123,7 +132,7 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
     }
 
     public void stateChanged(ChangeEvent event) {
-        controller.getGame().setTime(slider.getValue());
+        controller.getGame().setTime(1000/slider.getValue());
     }
 
     public void update(Observable obs) {
@@ -198,7 +207,6 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
         mapSelected="originalCLassic_food_fivePAcman.lay"; //carte par défaut
         jFrame = new JFrame();
         jFrame.setTitle("Settings");
-        jFrame.setSize(new Dimension(700, 700));
         int height = Toolkit.getDefaultToolkit().getScreenSize().height;
         int width = Toolkit.getDefaultToolkit().getScreenSize().width;
         jFrame.setSize(width/3, height /5);
@@ -243,26 +251,27 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
         JPanel panelGhosts = new JPanel(new GridLayout(0,1));
         Border borderG = BorderFactory.createTitledBorder("Ghost Strategy");
         panelGhosts.setBorder(borderG);
-        ButtonGroup strategyGhosts = new ButtonGroup();
+        ButtonGroup bGroupGhosts = new ButtonGroup();
         radio1G = new JRadioButton("Random");
         radio2G = new JRadioButton("A*",true);
-        strategyGhosts.add(radio1G);
+        strategyGhosts=radio2G.getText();
+        bGroupGhosts.add(radio1G);
         panelGhosts.add(radio1G);
-        strategyGhosts.add(radio2G);
+        bGroupGhosts.add(radio2G);
         panelGhosts.add(radio2G);
 
         //création de la liste de stratégies des pacman
         JPanel panelPacman = new JPanel(new GridLayout(0,1));
-        Border borderP = BorderFactory.createTitledBorder("Ghost Strategy");
+        Border borderP = BorderFactory.createTitledBorder("Pacman Strategy");
         panelPacman.setBorder(borderP);
-        ButtonGroup strategyPacmans = new ButtonGroup();
+        ButtonGroup bGroupPacmans = new ButtonGroup();
         radio1P = new JRadioButton("Random");
         radio2P = new JRadioButton("A*",true);
-        strategyPacmans.add(radio1P);
+        strategyPacmans=radio2P.getText();
+        bGroupPacmans.add(radio1P);
         panelPacman.add(radio1P);
-        strategyPacmans.add(radio2P);
+        bGroupPacmans.add(radio2P);
         panelPacman.add(radio2P);
-
 
         //création du bouton de validation
         accept = new JButton(" OK ");
@@ -282,7 +291,6 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
         jFrame.setVisible(true);
 
         System.out.println(" OK ");
-
     }
 
 }
