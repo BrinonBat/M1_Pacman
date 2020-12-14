@@ -48,7 +48,7 @@ public class ViewPacmanGame implements Observer {
         else{
             positionPacmans.add(currentGame.getPacmans().get(0).getPosition());
         
-            if(currentGame.getGhosts().size() > 0)
+            if(currentGame.getGhosts().size() >= 0)
             {
                 for (Ghost g : currentGame.getGhosts()) {
                     positionGhost.add(g.getPosition());
