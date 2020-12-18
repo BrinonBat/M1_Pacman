@@ -52,14 +52,11 @@ public class PacmanGame extends Game {
             startPacmans.add(new PositionAgent(pacmans.get(i).getPosition().getX(),pacmans.get(i).getPosition().getY()));
         }
         
-
         for (int i = 0; i < map.getInitNumberOfGhosts(); i++){
             ghosts.add(new Ghost(map.getGhosts_start().get(i),ghostStrategy));
             startGhosts.add(new PositionAgent(ghosts.get(i).getPosition().getX(),ghosts.get(i).getPosition().getY()));
-
         }
         
-
         this.setTurn(0);
         this.setRunning(true);
         this.setTime(800);
@@ -196,24 +193,12 @@ public class PacmanGame extends Game {
     }
 
     // Getters and Setters
-    public Maze getMap() {
-        return map;
-    }
-    public void setMap(Maze map) {
-        this.map = map;
-    }
-    public ArrayList<Pacman> getPacmans() {
-        return pacmans;
-    }
-    public void setPacmans(ArrayList<Pacman> pacmans) {
-        this.pacmans = pacmans;
-    }
-    public ArrayList<Ghost> getGhosts() {
-        return ghosts;
-    }
-    public void setGhosts(ArrayList<Ghost> ghosts) {
-        this.ghosts = ghosts;
-    }
+    public Maze getMap() { return map;}
+    public void setMap(Maze map) { this.map = map; }
+    public ArrayList<Pacman> getPacmans() { return pacmans; }
+    public void setPacmans(ArrayList<Pacman> pacmans) {  this.pacmans = pacmans; }
+    public ArrayList<Ghost> getGhosts() { return ghosts; }
+    public void setGhosts(ArrayList<Ghost> ghosts) { this.ghosts = ghosts;}
     public int getVie() { return nbVie ;} 
     public void setVie(int v) { nbVie = v;}   
     public String toString() {

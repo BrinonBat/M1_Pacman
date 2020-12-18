@@ -24,9 +24,11 @@ import java.awt.event.*;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import javax.swing.JComboBox;
 
-public class ViewCommand extends JFrame implements ActionListener,ChangeListener, Observer {
+public class ViewCommand extends JFrame implements ActionListener,ChangeListener, Observer{
     /**
      *
      */
@@ -42,7 +44,7 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
 
     //components for settings panel
     private JButton mapButton;
-    private JPopupMenu maps;
+    private JComboBox maps;
     private JRadioButton radio1G;
     private JRadioButton radio2G;
     private JRadioButton radio1P;
@@ -88,16 +90,15 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
         else if (source == step) {
             //controller.run();
             this.controller.getGame().takeTurn(); // on ne fait pas un step, car ce dernier à besoin de vérifier si la pause est mise ou non pour fonctionner.
-            System.out.println("step pushed");
         } 
         //mets le jeu en pause
         else if (source == pause) {
             controller.getGame().setRunning(false);
-            System.out.println("pause pushed");
         } 
         //accepte les paramètres
         else if( source == accept) {
             try{
+                mapSelected = maps.getSelectedItem().toString();
                 this.controller.getGame().setMaze(mapSelected);
                 this.controller.getGame().setGhostStrategy(strategyGhosts);
                 this.controller.getGame().setPacmanStrategy(strategyPacmans);
@@ -107,24 +108,19 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
             } catch(Exception e2){
                 System.out.println(e2.getMessage());
             }
-            System.out.println("accept pushed");
         }
         // sinon, on vérifie les boutons radio
         else {
             if (radio1G.isSelected()){
                 strategyGhosts=radio1G.getText();
-                System.out.println("1G");
             } else if (radio2G.isSelected()) {
                 strategyGhosts=radio2G.getText();
-                System.out.println("2G");
             }
     
             if (radio1P.isSelected()){
                 strategyPacmans=radio1P.getText();
-                System.out.println("1P");
             } else if (radio2P.isSelected()){
                 strategyPacmans=radio2P.getText();
-                System.out.println("2P");
             } else if (radio3P.isSelected()){
                 strategyPacmans=radio3P.getText();
                 System.out.println("3P");
@@ -153,7 +149,7 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
         Dimension tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
         int height = tailleEcran.height;
         int width = tailleEcran.width;
-        jFrame.setSize(width / 2, height / 3);
+        jFrame.setSize(width / 2, height / 2);
         jFrame.setLocation(width/4,height-(height/7));
         
 
@@ -213,51 +209,24 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
         jFrame.setTitle("Settings");
         int height = Toolkit.getDefaultToolkit().getScreenSize().height;
         int width = Toolkit.getDefaultToolkit().getScreenSize().width;
-        jFrame.setSize(width/3, height /5);
+        jFrame.setSize(width/5, height /2);
         jFrame.setLocation(width/3, height/4);
-        System.out.println("test");
 
         /*** Composants de la window */
 
-        GridLayout conteneur = new GridLayout(1, 4);
+        GridLayout conteneur = new GridLayout(4, 1);
         jFrame.setLayout(conteneur);
 
-        //création de la liste des cartes possibles
-        maps = new JScrollPopupMenu();
-        //actionListener pour le menu
-        ActionListener menuListener = new ActionListener() {
-            public void actionPerformed(ActionEvent event) {
-                mapSelected=event.getActionCommand().toString();
-                System.out.println("tostring:"+mapSelected);
-                System.out.println("Elément de menu [" + event.getActionCommand()+ "] utilisé.");
-            }
-        };
-
-        //récupération de la liste de fichiers et ajout dans le JMenu
-        FReader dirReader = new FReader("Layouts/");
-        ArrayList<String> files = dirReader.getTitles();
-        for(String title : files){
-            JMenuItem item=new JMenuItem(title);
-            item.addActionListener(menuListener);
-            maps.add(item);
-        }
-
-        //ajout d'un bouton pour ouvrir le menu
-        mapButton = new JButton("select a map");
-        mapButton.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                maps.show(e.getComponent(), e.getX(), e.getY());
-            }
-        });
 
         //création de la liste de stratégies des ghosts
-        JPanel panelGhosts = new JPanel(new GridLayout(0,1));
+        JPanel panelGhosts = new JPanel();
+        panelGhosts.setLayout(new FlowLayout());
         Border borderG = BorderFactory.createTitledBorder("Ghost Strategy");
         panelGhosts.setBorder(borderG);
         ButtonGroup bGroupGhosts = new ButtonGroup();
         radio1G = new JRadioButton("Random");
         radio2G = new JRadioButton("A*",true);
+        
         strategyGhosts=radio2G.getText();
         bGroupGhosts.add(radio1G);
         panelGhosts.add(radio1G);
@@ -265,21 +234,28 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
         panelGhosts.add(radio2G);
 
         //création de la liste de stratégies des pacman
-        JPanel panelPacman = new JPanel(new GridLayout(0,1));
+        JPanel panelPacman = new JPanel();
+        panelPacman.setLayout(new FlowLayout());
         Border borderP = BorderFactory.createTitledBorder("Pacman Strategy");
         panelPacman.setBorder(borderP);
+        
+        
         ButtonGroup bGroupPacmans = new ButtonGroup();
         radio1P = new JRadioButton("Random");
         radio2P = new JRadioButton("A*");
         radio3P = new JRadioButton("Player",true);
+        
         strategyPacmans=radio3P.getText();
+        
         bGroupPacmans.add(radio1P);
         panelPacman.add(radio1P);
+        
         bGroupPacmans.add(radio2P);
         panelPacman.add(radio2P);
+        
         bGroupPacmans.add(radio3P);
         panelPacman.add(radio3P);
-
+        setLayout(new FlowLayout());
 
         //création du bouton de validation
         accept = new JButton(" OK ");
@@ -291,10 +267,22 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
         radio1P.addActionListener(this);
         radio2P.addActionListener(this);
 
+        FReader dirReader2 = new FReader("Layouts/");
+        ArrayList<String> files2 = dirReader2.getTitles();
+      
+        Object[] elements = new Object[]{};
+        JPanel panel = new JPanel();
+        maps = new JComboBox(elements);
+
+        for(String s : files2){
+            maps.addItem(s);
+        }
+        panel.add(maps);
+
         //placement sur le JFrame
         jFrame.add(panelGhosts);
         jFrame.add(panelPacman);
-        jFrame.add(mapButton);
+        jFrame.add(panel);
         jFrame.add(accept);
         jFrame.setVisible(true);
 
