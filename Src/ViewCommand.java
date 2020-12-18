@@ -149,7 +149,7 @@ public class ViewCommand extends JFrame implements ActionListener,ChangeListener
         Dimension tailleEcran = Toolkit.getDefaultToolkit().getScreenSize();
         int height = tailleEcran.height;
         int width = tailleEcran.width;
-        jFrame.setSize(width / 2, height / 2);
+        jFrame.setSize(width / 2, height / 3);
         jFrame.setLocation(width/4,height-(height/7));
         
 
