@@ -1,7 +1,7 @@
 # M1_Pacman
 Projet validant le design pattern en master info
 
-tâches restantes:
+### tâches restantes
     - [x] regarder quels design pattern ajouter
     - [x] singleton sur les interfaces graphiques
     - [x] fenêtre supplémentaire au lancement de la partie pour choisir l'IA des ghosts et le terrain de jeu
